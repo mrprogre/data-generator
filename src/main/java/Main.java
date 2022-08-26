@@ -10,29 +10,27 @@ public class Main {
     private static final FileWriter WRITER = new FileWriter();
     private static final Randomizer RANDOM = new Randomizer();
     private static final PeopleNames NAMES = new PeopleNames();
-    private static final int ROWS_GENERATE_NUM = 1000;
-    private static final int MAX_AGE = 80;
+    private static final int ROWS_GENERATE_COUNT = 100;
+    private static final int MIN_AGE = 18;
+    private static final int MAX_AGE = 50;
     private static final int MIN_GRADE = 2;
     private static final int MAX_GRADE = 5;
 
     public static void main(String[] args) throws IOException {
-        generateRows();
+        new Main().generateRows();
     }
 
-    private static void generateRows() throws IOException {
+    private void generateRows() throws IOException {
         //int firstParam = Integer.parseInt(args[0]);
         List<String> rows = new ArrayList<>();
 
         String row;
-        for (int i = 0; i < Main.ROWS_GENERATE_NUM; i++) {
-
-            row = NAMES.getRandomManName() + " " + NAMES.getManSurname() + ";" +
-                    NAMES.getRandomWomanName() + " " + NAMES.getWomanSurname() + ";" +
-                    RANDOM.getRandomInt(MAX_AGE) + ";" +
-                    RANDOM.getRandomDouble(MIN_GRADE, MAX_GRADE) + ";" +
-                    "\n";
-
-            rows.add(row.replace(".", ","));
+        String rowFormat = "%d;%d;%s;%d;%s;";
+        for (int i = 0; i < ROWS_GENERATE_COUNT; i++) {
+            row = String.format(rowFormat, RANDOM.getRandomInt(), RANDOM.getRandomLong(), NAMES.getRandomHuman(),
+                    RANDOM.getRandomAge(MIN_AGE, MAX_AGE), RANDOM.getRandomDouble(MIN_GRADE, MAX_GRADE));
+            System.out.println(row);
+            rows.add(row + "\n");
         }
         WRITER.save(rows);
     }

@@ -8,7 +8,7 @@ public class FileWriter {
 
     public void save(List<String> list) throws IOException {
         Writer fileWriter = new java.io.FileWriter("test.csv", false);
-        fileWriter.write("name;age;average grade;\n");
+        //fileWriter.write("id;name;age;avg_grade;\n");
 
         list.forEach(x -> {
             try {

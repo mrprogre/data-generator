@@ -1,23 +1,33 @@
 package util;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Random;
 
 public class Randomizer {
-    Random random = new Random();
+    private final Random random = new Random();
 
-    public int getRandomInt(int maxValue) {
-        return random.nextInt(maxValue);
+    // not unique
+    public int getRandomInt() {
+        return Math.abs(random.nextInt());
     }
 
-    public double getRandomDouble(int minValue, int maxValue) {
-        return round(random.nextDouble() * (maxValue - minValue) + minValue);
+    public int getRandomInt(int value) {
+        return random.nextInt(value);
     }
 
-    private double round(double value) {
-        BigDecimal bd = new BigDecimal(Double.toString(value));
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+    public int getRandomAge(int min, int max) {
+        return random.nextInt(max + 1 - min) + min;
+    }
+
+    public long getRandomLong() {
+        return Math.abs(random.nextLong());
+    }
+
+    public String getRandomDouble(int min, int max) {
+        return String.valueOf(Util.round(random.nextDouble() * (max - min) + min))
+                .replace(".", ",");
+    }
+
+    public boolean getRandomBoolean() {
+        return Math.random() < 0.5;
     }
 }

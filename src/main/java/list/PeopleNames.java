@@ -5,6 +5,37 @@ import util.Randomizer;
 public class PeopleNames {
     private final Randomizer random = new Randomizer();
 
+    // Men
+    public String getManName() {
+        return menNames[random.getRandomInt(menNames.length)];
+    }
+
+    public String getManSurname() {
+        return menSurnames[random.getRandomInt(menSurnames.length)];
+    }
+
+    public String getManNameAndSurname() {
+        return getManName() + " " + getManSurname();
+    }
+
+    // Women
+    public String getWomanName() {
+        return womenNames[random.getRandomInt(womenNames.length)];
+    }
+
+    public String getSurname() {
+        return menSurnames[random.getRandomInt(menSurnames.length)] + "а";
+    }
+
+    public String getWomenNameAndSurname() {
+        return getWomanName() + " " + getSurname();
+    }
+
+    // Random human
+    public String getRandomHuman() {
+        return random.getRandomBoolean() ? getManNameAndSurname() : getWomenNameAndSurname();
+    }
+
     private final String[] menNames = {"Александр", "Максим", "Михаил", "Артём", "Даниил", "Иван", "Дмитрий", "Кирилл",
             "Андрей", "Матвей", "Егор", "Илья", "Марк", "Тимофей", "Роман", "Никита", "Алексей", "Лев", "Владимир",
             "Фёдор", "Ярослав", "Константин", "Сергей", "Степан", "Николай", "Георгий", "Владислав", "Павел", "Арсений",
@@ -59,20 +90,4 @@ public class PeopleNames {
             "Мясников", "Лихачёв", "Буров", "Сысоев", "Фомичёв", "Русаков", "Стрелков", "Гущин", "Тетерин", "Колобов",
             "Субботин", "Фокин", "Блохин", "Селиверстов", "Пестов", "Кондратьев", "Силин", "Меркушев", "Лыткин", "Туров"
     };
-
-    public String getRandomManName() {
-        return menNames[random.getRandomInt(menNames.length)];
-    }
-
-    public String getRandomWomanName() {
-        return womenNames[random.getRandomInt(womenNames.length)];
-    }
-
-    public String getManSurname() {
-        return menSurnames[random.getRandomInt(menSurnames.length)];
-    }
-
-    public String getWomanSurname() {
-        return menSurnames[random.getRandomInt(menSurnames.length)] + "а";
-    }
 }
