@@ -19,7 +19,7 @@ public class Generator {
         this.peopleNames = new PeopleNames();
     }
 
-    public void generateRows() throws IOException {
+    public void generateRows() {
         //int firstParam = Integer.parseInt(args[0]);
         final int rowsGenerateCount = 100;
         final int minAge = 18;
@@ -41,6 +41,10 @@ public class Generator {
             System.out.println(row);
             rows.add(row + "\n");
         }
-        fileWriter.save(rows);
+        try {
+            fileWriter.save(rows);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
