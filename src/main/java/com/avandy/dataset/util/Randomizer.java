@@ -1,4 +1,4 @@
-package util;
+package com.avandy.dataset.util;
 
 import java.util.Random;
 

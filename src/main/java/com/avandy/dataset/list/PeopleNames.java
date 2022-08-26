@@ -1,17 +1,17 @@
-package list;
+package com.avandy.dataset.list;
 
-import util.Randomizer;
+import com.avandy.dataset.util.Randomizer;
 
 public class PeopleNames {
-    private final Randomizer random = new Randomizer();
+    private final Randomizer randomizer = new Randomizer();
 
     // Men
     public String getManName() {
-        return menNames[random.getRandomInt(menNames.length)];
+        return menNames[randomizer.getRandomInt(menNames.length)];
     }
 
     public String getManSurname() {
-        return menSurnames[random.getRandomInt(menSurnames.length)];
+        return menSurnames[randomizer.getRandomInt(menSurnames.length)];
     }
 
     public String getManNameAndSurname() {
@@ -20,11 +20,11 @@ public class PeopleNames {
 
     // Women
     public String getWomanName() {
-        return womenNames[random.getRandomInt(womenNames.length)];
+        return womenNames[randomizer.getRandomInt(womenNames.length)];
     }
 
     public String getSurname() {
-        return menSurnames[random.getRandomInt(menSurnames.length)] + "а";
+        return menSurnames[randomizer.getRandomInt(menSurnames.length)] + "а";
     }
 
     public String getWomenNameAndSurname() {
@@ -33,7 +33,7 @@ public class PeopleNames {
 
     // Random human
     public String getRandomHuman() {
-        return random.getRandomBoolean() ? getManNameAndSurname() : getWomenNameAndSurname();
+        return randomizer.getRandomBoolean() ? getManNameAndSurname() : getWomenNameAndSurname();
     }
 
     private final String[] menNames = {"Александр", "Максим", "Михаил", "Артём", "Даниил", "Иван", "Дмитрий", "Кирилл",
