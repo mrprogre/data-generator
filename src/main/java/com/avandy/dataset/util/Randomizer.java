@@ -22,9 +22,14 @@ public class Randomizer {
         return Math.abs(random.nextLong());
     }
 
-    public String getRandomDouble(int min, int max) {
-        return String.valueOf(Util.round(random.nextDouble() * (max - min) + min))
-                .replace(".", ",");
+    // для CSV формата
+//    public String getRandomDouble(int min, int max) {
+//        return String.valueOf(Util.round(random.nextDouble() * (max - min) + min))
+//                .replace(".", ",");
+//    }
+
+    public double getRandomDouble(int min, int max) {
+        return Util.round(random.nextDouble() * (max - min) + min);
     }
 
     public boolean getRandomBoolean() {
