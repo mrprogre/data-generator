@@ -5,6 +5,7 @@ import com.avandy.dataset.ui.Gui;
 import com.avandy.dataset.util.FileWriter;
 import com.avandy.dataset.util.Randomizer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,16 +30,20 @@ public class Generator {
         List<String> rows = new ArrayList<>();
 
         String row;
-        String rowFormat = "%d;%d;%s;%d;%s;";
+        String rowFormat = "%d;%d;%d;%s;%d;%f;%s;%s;";
 
         if (Gui.model.getRowCount() > 0) Gui.model.setRowCount(0);
         for (int i = 1; i <= rowsToGenerate; i++) {
-//            row = String.format(rowFormat,
-//                    randomizer.getRandomInt(),
-//                    randomizer.getRandomLong(),
-//                    Lists.getRandomHuman(),
-//                    randomizer.getRandomAge(minAge, maxAge),
-//                    randomizer.getRandomDouble(minGrade, maxGrade));
+            row = String.format(rowFormat,
+                    i,
+                    Randomizer.getRandomInt(),
+                    Randomizer.getRandomLong(),
+                    lists.getRandomHuman(),
+                    Randomizer.getRandomAge(minAge, maxAge),
+                    Randomizer.getRandomDouble(minGrade, maxGrade),
+                    lists.getCar(),
+                    lists.getColor()
+            );
 
             Gui.model.addRow(new Object[] {
                     i,
@@ -52,12 +57,12 @@ public class Generator {
             });
 
             //System.out.println(row);
-            //rows.add(row + "\n");
+            rows.add(row + "\n");
         }
-//        try {
-//            FileWriter.save(rows);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            FileWriter.save(rows);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

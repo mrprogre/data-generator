@@ -6,7 +6,7 @@ import java.util.List;
 
 public class FileWriter {
 
-    public void save(List<String> list) throws IOException {
+    public static void save(List<String> list) throws IOException {
         Writer fileWriter = new java.io.FileWriter("test.csv", false);
         //fileWriter.write("id;name;age;avg_grade;\n");
 
