@@ -37,7 +37,7 @@ public class Gui extends JFrame {
         setIconImage(LOGO_ICON.getImage());
         setFont(GUI_FONT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(370, 190, 1190, 600);
+        setBounds(370, 190, 1195, 600);
         getContentPane().setLayout(null);
 
         //Table
@@ -171,7 +171,7 @@ public class Gui extends JFrame {
             // наведение мышки на письмо
             @Override
             public void mouseEntered(MouseEvent e) {
-                labelSign.setForeground(new Color(41, 135, 39));
+                labelSign.setForeground(new Color(40, 36, 180));
             }
 
             // убрали мышку с письма
