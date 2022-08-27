@@ -1,8 +1,8 @@
-package com.avandy.dataset.list;
+package com.avandy.dataset.generator;
 
 import com.avandy.dataset.util.Randomizer;
 
-public class Lists {
+public class Data {
     // Men
     public String getManName() {
         return menNames[Randomizer.getRandomInt(menNames.length)];

@@ -8,7 +8,6 @@ import java.util.Random;
 public class Randomizer {
     private final Random random = new Random();
 
-    // not unique
     public int getRandomInt() {
         return Math.abs(random.nextInt());
     }
@@ -24,12 +23,6 @@ public class Randomizer {
     public long getRandomLong() {
         return Math.abs(random.nextLong());
     }
-
-    // для CSV формата
-//    public String getRandomDouble(int min, int max) {
-//        return String.valueOf(Util.round(random.nextDouble() * (max - min) + min))
-//                .replace(".", ",");
-//    }
 
     public double getRandomDouble(int min, int max) {
         return Util.round(random.nextDouble() * (max - min) + min);

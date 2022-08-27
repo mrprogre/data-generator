@@ -1,6 +1,5 @@
 package com.avandy.dataset.generator;
 
-import com.avandy.dataset.list.Lists;
 import com.avandy.dataset.ui.Gui;
 import com.avandy.dataset.util.Randomizer;
 
@@ -9,10 +8,10 @@ import java.util.List;
 
 public class Generator {
     public static List<String> rows = new ArrayList<>();
-    private final Lists lists;
+    private final Data data;
 
     public Generator() {
-        this.lists = new Lists();
+        this.data = new Data();
     }
 
     public void generate(String rowCount) {
@@ -41,11 +40,11 @@ public class Generator {
                     i,
                     Randomizer.getRandomInt(),
                     Randomizer.getRandomLong(),
-                    lists.getRandomHuman(),
+                    data.getRandomHuman(),
                     Randomizer.getRandomAge(minAge, maxAge),
                     Randomizer.getRandomDouble(minGrade, maxGrade),
-                    lists.getCar(),
-                    lists.getColor()
+                    data.getCar(),
+                    data.getColor()
             });
 
             // Строки для выгрузки в файл
@@ -53,11 +52,11 @@ public class Generator {
                     i,
                     Randomizer.getRandomInt(),
                     Randomizer.getRandomLong(),
-                    lists.getRandomHuman(),
+                    data.getRandomHuman(),
                     Randomizer.getRandomAge(minAge, maxAge),
                     Randomizer.getRandomDouble(minGrade, maxGrade),
-                    lists.getCar(),
-                    lists.getColor()
+                    data.getCar(),
+                    data.getColor()
             );
             rows.add(row + "\n");
         }
