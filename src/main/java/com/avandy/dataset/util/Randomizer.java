@@ -1,7 +1,10 @@
 package com.avandy.dataset.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.Random;
 
+@UtilityClass
 public class Randomizer {
     private final Random random = new Random();
 

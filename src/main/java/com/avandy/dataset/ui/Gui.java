@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class Gui extends JFrame {
     public static DefaultTableModel model;
-    private static final Object[] MAIN_TABLE_HEADERS = {"1", "2", "3", "4", "5"};
+    private static final Object[] MAIN_TABLE_HEADERS = {"Int", "Long", "FIO", "Age", "Avg grade", "Car", "Color"};
 
     public Gui() {
         setResizable(false);
@@ -20,7 +20,7 @@ public class Gui extends JFrame {
         //setIconImage(LOGO_ICON.getImage());
         //setFont(GUI_FONT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(340, 100, 1195, 634);
+        setBounds(510, 235, 900, 634);
         getContentPane().setLayout(null);
 
         //Table
@@ -30,7 +30,7 @@ public class Gui extends JFrame {
         model = new DefaultTableModel(new Object[][]{
         }, MAIN_TABLE_HEADERS) {
             final boolean[] columnEditable = new boolean[]{
-                    false, false, false, false, false
+                    false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int row, int column) {
@@ -38,7 +38,8 @@ public class Gui extends JFrame {
             }
 
             // Сортировка
-            final Class[] types_unique = {Integer.class, Long.class, String.class, Integer.class, Double.class};
+            final Class[] types_unique = {Integer.class, Long.class, String.class, Integer.class,
+                    Double.class, String.class, String.class};
 
             @Override
             public Class getColumnClass(int columnIndex) {

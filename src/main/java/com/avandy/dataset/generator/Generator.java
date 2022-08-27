@@ -1,6 +1,6 @@
 package com.avandy.dataset.generator;
 
-import com.avandy.dataset.list.PeopleNames;
+import com.avandy.dataset.list.Lists;
 import com.avandy.dataset.ui.Gui;
 import com.avandy.dataset.util.FileWriter;
 import com.avandy.dataset.util.Randomizer;
@@ -10,13 +10,11 @@ import java.util.List;
 
 public class Generator {
     private final FileWriter fileWriter;
-    private final Randomizer randomizer;
-    private final PeopleNames peopleNames;
+    private final Lists lists;
 
     public Generator() {
         this.fileWriter = new FileWriter();
-        this.randomizer = new Randomizer();
-        this.peopleNames = new PeopleNames();
+        this.lists = new Lists();
     }
 
     public void generate() {
@@ -40,16 +38,18 @@ public class Generator {
 //            row = String.format(rowFormat,
 //                    randomizer.getRandomInt(),
 //                    randomizer.getRandomLong(),
-//                    peopleNames.getRandomHuman(),
+//                    Lists.getRandomHuman(),
 //                    randomizer.getRandomAge(minAge, maxAge),
 //                    randomizer.getRandomDouble(minGrade, maxGrade));
 
             Gui.model.addRow(new Object[] {
-                    randomizer.getRandomInt(),
-                    randomizer.getRandomLong(),
-                    peopleNames.getRandomHuman(),
-                    randomizer.getRandomAge(minAge, maxAge),
-                    randomizer.getRandomDouble(minGrade, maxGrade)
+                    Randomizer.getRandomInt(),
+                    Randomizer.getRandomLong(),
+                    lists.getRandomHuman(),
+                    Randomizer.getRandomAge(minAge, maxAge),
+                    Randomizer.getRandomDouble(minGrade, maxGrade),
+                    lists.getCar(),
+                    lists.getColor()
             });
 
             //System.out.println(row);

@@ -2,16 +2,15 @@ package com.avandy.dataset.list;
 
 import com.avandy.dataset.util.Randomizer;
 
-public class PeopleNames {
-    private final Randomizer randomizer = new Randomizer();
+public class Lists {
 
     // Men
     public String getManName() {
-        return menNames[randomizer.getRandomInt(menNames.length)];
+        return menNames[Randomizer.getRandomInt(menNames.length)];
     }
 
     public String getManSurname() {
-        return menSurnames[randomizer.getRandomInt(menSurnames.length)];
+        return menSurnames[Randomizer.getRandomInt(menSurnames.length)];
     }
 
     public String getManNameAndSurname() {
@@ -20,11 +19,11 @@ public class PeopleNames {
 
     // Women
     public String getWomanName() {
-        return womenNames[randomizer.getRandomInt(womenNames.length)];
+        return womenNames[Randomizer.getRandomInt(womenNames.length)];
     }
 
     public String getSurname() {
-        return menSurnames[randomizer.getRandomInt(menSurnames.length)] + "а";
+        return menSurnames[Randomizer.getRandomInt(menSurnames.length)] + "а";
     }
 
     public String getWomenNameAndSurname() {
@@ -33,8 +32,74 @@ public class PeopleNames {
 
     // Random human
     public String getRandomHuman() {
-        return randomizer.getRandomBoolean() ? getManNameAndSurname() : getWomenNameAndSurname();
+        return Randomizer.getRandomBoolean() ? getManNameAndSurname() : getWomenNameAndSurname();
     }
+
+    public String getColor() {
+        return color[Randomizer.getRandomInt(color.length)];
+    }
+
+    public String getCar() {
+        return car[Randomizer.getRandomInt(car.length)];
+    }
+
+    private final String[] color = {
+            "Коричневый", "Красный", "Синий", "Белый", "Чёрный", "Жёлтый", "Оранжевый",
+            "Голубой", "Фиолетовый", "Розовый", "Зелёный", "Серый", "Бирюзовый"
+    };
+
+    private final String[] car = {
+            "AC", "Acura", "Alfa Romeo", "Alpina", "Alpine", "Ariel", "Aro", "Asia", "Aston Martin", "Audi", "Austin",
+            "Autobianchi", "Baltijas Dzips", "Beijing", "Bentley", "Bertone", "Bitter", "Blonell", "BMW", "Brilliance",
+            "Bristol", "Bufori", "Bugatti", "Buick", "BYD", "Cadillac", "Callaway", "Carbodies", "Carver", "Caterham",
+            "Changan", "ChangFeng", "Chery", "Chevrolet", "Chrysler", "Citroen", "Cizeta", "Coggiola", "Dacia", "Dadi",
+            "Daewoo", "DAF", "Daihatsu", "Daimler", "Dallas", "De Lorean", "De Tomaso", "Derways", "Dodge", "DongFeng",
+            "Doninvest", "Donkervoort", "Eagle", "FAW", "Ferrari", "Fiat", "Ford", "Foton", "FSO", "Fuqi", "Geely",
+            "Geo", "GMC", "Gonow", "Great Wall", "Hafei", "Haima", "Hindustan", "Holden", "Honda", "HuangHai", "Hurtan",
+            "Hyundai", "Infiniti", "Innocenti", "Invicta", "Iran Khodro", "Irmscher", "Isdera", "Isuzu", "IVECO",
+            "JAC", "Jaguar", "Jeep", "Jensen", "Jiangling", "JMC", "Kia", "Koenigsegg", "KTM", "Lamborghini", "Lancia",
+            "Land Rover", "Landwind", "Lexus", "Liebao Motor", "Lifan", "Lincoln", "Lotus", "LTI", "Mahindra",
+            "Marcos", "Marlin", "Marussia", "Maruti", "Maserati", "Maybach", "Mazda", "Mc Laren", "MCC", "Mega",
+            "Mercedes-Benz", "Mercury", "Metrocab", "MG", "Microcar", "Minelli", "Mini", "Mitsubishi", "Mitsuoka",
+            "Monte Carlo", "Morgan", "Morris", "Nissan", "Noble", "Oldsmobile", "Opel", "Osca", "Pagani", "Panoz",
+            "Paykan", "Perodua", "Peugeot", "Plymouth", "Pontiac", "Porsche", "Premier", "Proton", "PUCH", "Puma",
+            "Qvale", "Reliant", "Renault", "Renault Samsung", "Rolls-Royce", "Ronart", "Rover", "Saab", "Saleen",
+            "Saturn", "Scion", "SEAT", "ShuangHuan", "Skoda", "SMA", "Smart", "Soueast", "Spectre", "Spyker",
+            "Ssang Yong", "Subaru", "Suzuki", "Talbot", "TATA", "Tatra", "Tazzari", "Tesla", "Tianma", "Tianye",
+            "Tofas", "Tonggong", "Toyota", "Trabant", "Triumph", "TVR", "Vauxhall", "Vector", "Venturi", "Vespa",
+            "Volkswagen", "Volvo", "Vortex", "VW-Porsche", "Wartburg", "Westfield", "Wiesmann", "Xin Kai", "YueJin",
+            "Zastava", "Zorzi", "ZX", "Astro", "VAZ", "GAZ", "ZAZ", "ZIL", "IZH", "KAMAZ", "LUAZ", "Moskvich", "SEAZ",
+            "TAGAZ", "UAZ", "Barkas", "BAW", "BMC", "Freightliner", "Golden Dragon", "International", "Intrall",
+            "Jinbei", "LDV", "Mudan", "Nisa", "Sokon", "GOLAZ", "RAF", "SEMAR", "ASTRA", "Avia", "Beifan", "CAMC",
+            "Hino", "Howo", "IVECO HongYan", "IVECO-Ling Ye", "Iveco-Uralaz", "MAN", "North Benz", "Peterbilt",
+            "Pinzgauer", "Robur", "Scania", "Sterling", "Terberg", "Tiema", "Western Star", "YoungMan", "AMUR",
+            "БЗКТ", "KAZ", "KRAZ", "MAZ", "MAZ-MAN", "MOAZ", "Ural", "ERF", "Kalmar", "Kenworth", "Mack", "BZKT",
+            "MZKT", "Rusich", "ANKAI", "Ayats", "Bova", "Higer", "Ikarbus", "Ikarus", "Irisbus", "Jelcz", "Neoplan",
+            "Otokar", "Setra", "TAM", "Temsa", "Thomas Built Buses", "Van Hool", "VDL Bus Chassis", "Yutong",
+            "Zhong Tong", "Zonda", "BAZ", "Bogdan", "Volzhanin", "KAVZ", "LAZ", "LIAZ", "MARZ", "NEMAN OZ", "NEFAZ",
+            "PAZ", "RMZ", "ROAZ", "ABM", "Aermacchi", "AJP", "AJS", "Alfer", "Amazonas", "American Eagle", "Apollo",
+            "Aprilia", "Ardie", "ATK", "Atlant", "Azel", "Bajaj", "BamX", "Benelli", "Beta", "Big Bear Choppers",
+            "Big Dog Motorcycles", "Bimota", "Blata", "BM", "BMC Choppers", "Borile", "Boss Hoss", "BSA", "BSE",
+            "BucciMoto", "Buell", "Bultaco", "Cagiva", "Campagna", "CCM", "CH Racing", "Chang-Jiang", "Cobra",
+            "Confederate", "CPI", "CR&S", "CSR", "CZ", "Daelim", "Dandy", "Defiant", "Derbi", "Dirtmax", "DKW",
+            "DM Telai", "Dnepr", "Donghai", "Ducar", "Ducati", "Ecosse", "Factory Bike", "Fantic",
+            "Fine Custom Mechanics", "Fischer", "Flyrite Choppers", "Forsage", "Fosti", "Futong", "G&G", "G-max",
+            "GAS GAS", "Generic", "Ghezzi-Brian", "GX moto", "Harley-Davidson", "Hartford", "Hercules", "Highland",
+            "Honling", "Horex", "Husaberg", "Husqvarna", "Hyosung", "Indian", "IRBIS", "Iron Horse", "Italjet", "Jawa",
+            "Jawa-CZ", "Jialing", "Jianshe-Yamaha", "Jincheng", "Johnny Pag", "JRL", "Kangda", "Kanuni", "Kawasaki",
+            "Keeway", "Kinlon Motors", "Kramit", "Kreidler", "Kymco", "Laverda", "Legend", "Magni", "Maico", "Malaguti",
+            "Malanca", "Matchless", "MBK", "MBS", "Meqelli", "Metrakit", "Midual", "Mikilon", "Minsk", "MM", "Mondial",
+            "Montesa", "Moto Guzzi", "Moto Morini", "Motobi", "Motorhispania", "Mototrans", "MTT", "Munch", "MuZ",
+            "MV Agusta", "MZ", "NCR", "Neander", "Nexus", "Nipponia", "Norton", "Omaks Motors",
+            "Orange County Choppers", "Orion", "OSSA", "Pagsta", "Pannonia", "Patron", "PGO", "Pioneer",
+            "Pitmoto", "Pitsterpro", "Polini", "Praga", "PRC", "QingQi", "Qlink", "Rajdoot", "Red Wing",
+            "Regal Raptor", "Rhino", "Rieju", "Roehr", "Roxon", "Royal Enfield", "Sachs", "Sagitta", "Sanglas",
+            "Saxon", "Scorpa", "Senke", "Sherco", "Siamoto", "Simson", "Skygo", "Solo", "Stels", "SVM", "Swift",
+            "Sym", "Tank Sports", "Titan", "TM Racing", "Tomos", "Tomoto", "Travertson", "Troll", "TVS", "UM",
+            "Van Veen", "Vento", "Vertemati", "Victory", "Viper", "Von Dutch", "VOR", "Voxan", "Vyrus", "Wakan",
+            "Wuyi Wusheng Electric", "Xingfu", "Xispa", "Xmotos", "Yamaha", "Yamasaki", "Yangtze", "Zongshen",
+            "Zundapp", "Zweirad-Union", "Voshod", "ZID", "MMZ", "Tula"
+    };
 
     private final String[] menNames = {"Александр", "Максим", "Михаил", "Артём", "Даниил", "Иван", "Дмитрий", "Кирилл",
             "Андрей", "Матвей", "Егор", "Илья", "Марк", "Тимофей", "Роман", "Никита", "Алексей", "Лев", "Владимир",
