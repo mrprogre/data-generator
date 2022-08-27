@@ -4,7 +4,6 @@ import com.avandy.dataset.generator.Generator;
 import com.avandy.dataset.util.Saver;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -13,10 +12,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Gui extends JFrame {
+    public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color"};
+    private static final String[] SAVE_FORMAT = new String[]{"csv", "json"};
     public static JTextField rowsCount;
     public static DefaultTableModel model;
-    private final Object[] MAIN_TABLE_HEADERS = {"", "Int", "Long", "FIO", "Age", "Avg grade", "Car", "Color"};
-    private final String[] saveFormat = new String[]{"csv", "json"};
     private final JComboBox<String> saveFormatComboBox;
 
     public Gui() {
@@ -100,7 +99,7 @@ public class Gui extends JFrame {
         generateButton.setBorderPainted(true);
         getContentPane().add(generateButton);
         generateButton.addActionListener(e -> {
-            new Generator().generate();
+            new Generator().generate(rowsCount.getText());
         });
 
 
@@ -110,7 +109,7 @@ public class Gui extends JFrame {
         saveFormatComboBox.setBackground(new Color(238, 238, 238));
         saveFormatComboBox.setFont(new Font("Tahoma", Font.BOLD, 12));
         saveFormatComboBox.setEditable(false);
-        saveFormatComboBox.setModel(new DefaultComboBoxModel<>(saveFormat));
+        saveFormatComboBox.setModel(new DefaultComboBoxModel<>(SAVE_FORMAT));
         this.getContentPane().add(saveFormatComboBox);
 
         // Выгрузка в файл

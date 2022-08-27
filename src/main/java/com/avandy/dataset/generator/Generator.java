@@ -15,8 +15,8 @@ public class Generator {
         this.lists = new Lists();
     }
 
-    public void generate() {
-        generateRows(Gui.rowsCount.getText());
+    public void generate(String rowCount) {
+        generateRows(rowCount);
     }
 
     private void generateRows(String rowsCount) {
