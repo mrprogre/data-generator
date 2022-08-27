@@ -8,4 +8,4 @@
 
 *Открыто для доработок и использования!*
 
-![image](https://user-images.githubusercontent.com/45883640/187036888-21afaf07-e7ca-4999-aaf3-617d0ddb75ed.png)
+![image](https://user-images.githubusercontent.com/45883640/187037205-54f2cd02-c990-49c3-98a6-637995ee4614.png)
