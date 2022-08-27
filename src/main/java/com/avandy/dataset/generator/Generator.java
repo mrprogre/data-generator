@@ -35,28 +35,36 @@ public class Generator {
         if (rows.size() > 0) rows.clear();
 
         for (int i = 1; i <= rowsToGenerate; i++) {
+            int randomInt = Randomizer.getRandomInt();
+            long randomLong = Randomizer.getRandomLong();
+            String randomHuman = data.getRandomHuman();
+            int randomAge = Randomizer.getRandomAge(minAge, maxAge);
+            double randomDouble = Randomizer.getRandomDouble(minGrade, maxGrade);
+            String car = data.getCar();
+            String color = data.getColor();
+
             // Заполнение таблицы UI
-            Gui.model.addRow(new Object[] {
+            Gui.model.addRow(new Object[]{
                     i,
-                    Randomizer.getRandomInt(),
-                    Randomizer.getRandomLong(),
-                    data.getRandomHuman(),
-                    Randomizer.getRandomAge(minAge, maxAge),
-                    Randomizer.getRandomDouble(minGrade, maxGrade),
-                    data.getCar(),
-                    data.getColor()
+                    randomInt,
+                    randomLong,
+                    randomHuman,
+                    randomAge,
+                    randomDouble,
+                    car,
+                    color
             });
 
             // Строки для выгрузки в файл
             row = String.format(rowFormat,
                     i,
-                    Randomizer.getRandomInt(),
-                    Randomizer.getRandomLong(),
-                    data.getRandomHuman(),
-                    Randomizer.getRandomAge(minAge, maxAge),
-                    Randomizer.getRandomDouble(minGrade, maxGrade),
-                    data.getCar(),
-                    data.getColor()
+                    randomInt,
+                    randomLong,
+                    randomHuman,
+                    randomAge,
+                    randomDouble,
+                    car,
+                    color
             );
             rows.add(row + "\n");
         }
