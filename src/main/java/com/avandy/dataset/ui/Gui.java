@@ -3,6 +3,7 @@ package com.avandy.dataset.ui;
 import com.avandy.dataset.generator.Generator;
 import com.avandy.dataset.util.Saver;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 public class Gui extends JFrame {
     public static DefaultTableModel model;
@@ -23,20 +25,24 @@ public class Gui extends JFrame {
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
     private static JTextField rowsCount;
     private final JComboBox<String> saveFormatComboBox;
+    private JLabel generateTime;
+    private long startGenerate;
+    private long endGenerate;
 
     public Gui() {
         setResizable(false);
-        getContentPane().setBackground(new Color(231, 231, 231));
+        getContentPane().setBackground(new Color(178, 233, 231));
+        this.setContentPane(new Background());
         setTitle("avandy-data-generator");
         setIconImage(LOGO_ICON.getImage());
         setFont(GUI_FONT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(370, 190, 1234, 600);
+        setBounds(370, 190, 1190, 600);
         getContentPane().setLayout(null);
 
         //Table
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 40, 1200, 500);
+        scrollPane.setBounds(10, 40, 1160, 500);
         getContentPane().add(scrollPane);
         model = new DefaultTableModel(new Object[][]{
         }, MAIN_TABLE_HEADERS) {
@@ -84,8 +90,8 @@ public class Gui extends JFrame {
         table.getColumnModel().getColumn(1).setPreferredWidth(90);
         table.getColumnModel().getColumn(2).setMaxWidth(160);
         table.getColumnModel().getColumn(2).setPreferredWidth(160);
-        table.getColumnModel().getColumn(4).setMaxWidth(42);
-        table.getColumnModel().getColumn(4).setPreferredWidth(42);
+        table.getColumnModel().getColumn(4).setMaxWidth(50);
+        table.getColumnModel().getColumn(4).setPreferredWidth(50);
         table.getColumnModel().getColumn(5).setMaxWidth(90);
         table.getColumnModel().getColumn(5).setPreferredWidth(90);
 
@@ -101,11 +107,21 @@ public class Gui extends JFrame {
         generateButton.setContentAreaFilled(false);
         generateButton.setBorderPainted(true);
         getContentPane().add(generateButton);
-        generateButton.addActionListener(e -> new Generator().generate(rowsCount.getText()));
+        generateButton.addActionListener(e -> {
+            startGenerate = System.currentTimeMillis();
+            new Generator().generate(rowsCount.getText());
+            endGenerate = System.currentTimeMillis();
+            generateTime.setText((endGenerate - startGenerate) + " ms.");
+        });
+
+        // Время генерации
+        generateTime = new JLabel("0 ms.");
+        generateTime.setBounds(180, 14, 60, 14);
+        getContentPane().add(generateTime);
 
         // Формат выгрузки
         saveFormatComboBox = new JComboBox<>();
-        saveFormatComboBox.setBounds(1065, 10, 55, 22);
+        saveFormatComboBox.setBounds(1028, 10, 55, 22);
         saveFormatComboBox.setBackground(new Color(238, 238, 238));
         saveFormatComboBox.setFont(new Font("Tahoma", Font.BOLD, 12));
         saveFormatComboBox.setEditable(false);
@@ -117,7 +133,7 @@ public class Gui extends JFrame {
         exportButton.setFocusable(false);
         exportButton.setContentAreaFilled(false);
         exportButton.setBorderPainted(true);
-        exportButton.setBounds(1133, 10, 77, 22);
+        exportButton.setBounds(1093, 10, 77, 22);
         getContentPane().add(exportButton);
         exportButton.addActionListener(e -> {
             try {
@@ -148,13 +164,14 @@ public class Gui extends JFrame {
         labelSign.setForeground(new Color(0, 0, 0));
         //labelSign.setEnabled(false);
         labelSign.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelSign.setBounds(1153, 546, 57, 14);
+        labelSign.setBounds(1113, 543, 57, 14);
         getContentPane().add(labelSign);
+
         labelSign.addMouseListener(new MouseAdapter() {
             // наведение мышки на письмо
             @Override
             public void mouseEntered(MouseEvent e) {
-                labelSign.setForeground(new Color(148, 52, 0));
+                labelSign.setForeground(new Color(41, 135, 39));
             }
 
             // убрали мышку с письма
@@ -185,5 +202,16 @@ public class Gui extends JFrame {
         });
 
         setVisible(true);
+    }
+
+    static class Background extends JPanel {
+        public void paintComponent(Graphics g) {
+            try {
+                Image im = ImageIO.read(Objects.requireNonNull(this.getClass().getResource("/background/gray.png"))); //gray.png
+                g.drawImage(im, 0, 0, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
