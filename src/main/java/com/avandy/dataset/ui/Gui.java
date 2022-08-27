@@ -12,10 +12,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Gui extends JFrame {
+    public static DefaultTableModel model;
     public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color"};
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
     private static JTextField rowsCount;
-    public static DefaultTableModel model;
     private final JComboBox<String> saveFormatComboBox;
 
     public Gui() {
