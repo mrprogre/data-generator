@@ -31,7 +31,10 @@ public class Generator {
         String row;
         String rowFormat = "%d;%d;%d;%s;%d;%2f;%s;%s;";
 
+        // очистка таблицы и коллекции перед новой генерацией строк
         if (Gui.model.getRowCount() > 0) Gui.model.setRowCount(0);
+        if (rows.size() > 0) rows.clear();
+
         for (int i = 1; i <= rowsToGenerate; i++) {
             // Заполнение таблицы UI
             Gui.model.addRow(new Object[] {
