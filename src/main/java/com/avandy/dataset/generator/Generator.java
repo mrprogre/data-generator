@@ -56,17 +56,17 @@ public class Generator {
             });
 
             // Строки для выгрузки в файл
-            row = String.format(rowFormat,
-                    i,
-                    randomInt,
-                    randomLong,
-                    randomHuman,
-                    randomAge,
-                    randomDouble,
-                    car,
-                    color
-            );
-            rows.add(row + "\n");
+//            row = String.format(rowFormat,
+//                    i,
+//                    randomInt,
+//                    randomLong,
+//                    randomHuman,
+//                    randomAge,
+//                    randomDouble,
+//                    car,
+//                    color
+//            );
+//            rows.add(row + "\n");
         }
     }
 }
