@@ -29,7 +29,7 @@ public class Generator {
 
 
         String row;
-        String rowFormat = "%d;%d;%d;%s;%d;%2f;%s;%s;";
+        String rowFormat = "%d;%d;%d;%s;%d;%2f;%s;%s";
 
         // очистка таблицы и коллекции перед новой генерацией строк
         if (Gui.model.getRowCount() > 0) Gui.model.setRowCount(0);

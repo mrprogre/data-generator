@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class Gui extends JFrame {
     public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color"};
-    private static final String[] SAVE_FORMAT = new String[]{"csv", "json"};
+    private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
     public static JTextField rowsCount;
     public static DefaultTableModel model;
     private final JComboBox<String> saveFormatComboBox;
