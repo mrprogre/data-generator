@@ -2,14 +2,13 @@ package com.avandy.dataset.generator;
 
 import com.avandy.dataset.list.Lists;
 import com.avandy.dataset.ui.Gui;
-import com.avandy.dataset.util.FileWriter;
 import com.avandy.dataset.util.Randomizer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Generator {
+    public static List<String> rows = new ArrayList<>();
     private final Lists lists;
 
     public Generator() {
@@ -27,24 +26,14 @@ public class Generator {
         final int maxAge = 50;
         final int minGrade = 2;
         final int maxGrade = 5;
-        List<String> rows = new ArrayList<>();
+
 
         String row;
-        String rowFormat = "%d;%d;%d;%s;%d;%f;%s;%s;";
+        String rowFormat = "%d;%d;%d;%s;%d;%2f;%s;%s;";
 
         if (Gui.model.getRowCount() > 0) Gui.model.setRowCount(0);
         for (int i = 1; i <= rowsToGenerate; i++) {
-            row = String.format(rowFormat,
-                    i,
-                    Randomizer.getRandomInt(),
-                    Randomizer.getRandomLong(),
-                    lists.getRandomHuman(),
-                    Randomizer.getRandomAge(minAge, maxAge),
-                    Randomizer.getRandomDouble(minGrade, maxGrade),
-                    lists.getCar(),
-                    lists.getColor()
-            );
-
+            // Заполнение таблицы UI
             Gui.model.addRow(new Object[] {
                     i,
                     Randomizer.getRandomInt(),
@@ -56,13 +45,18 @@ public class Generator {
                     lists.getColor()
             });
 
-            //System.out.println(row);
+            // Строки для выгрузки в файл
+            row = String.format(rowFormat,
+                    i,
+                    Randomizer.getRandomInt(),
+                    Randomizer.getRandomLong(),
+                    lists.getRandomHuman(),
+                    Randomizer.getRandomAge(minAge, maxAge),
+                    Randomizer.getRandomDouble(minGrade, maxGrade),
+                    lists.getCar(),
+                    lists.getColor()
+            );
             rows.add(row + "\n");
-        }
-        try {
-            FileWriter.save(rows);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

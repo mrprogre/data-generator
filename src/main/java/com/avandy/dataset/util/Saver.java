@@ -1,13 +1,14 @@
 package com.avandy.dataset.util;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
-public class FileWriter {
+public class Saver {
 
-    public static void save(List<String> list) throws IOException {
-        Writer fileWriter = new java.io.FileWriter("test.csv", false);
+    public void saveCsv(List<String> list, String path) throws IOException {
+        Writer fileWriter = new FileWriter(path, false);
         //fileWriter.write("id;name;age;avg_grade;\n");
 
         list.forEach(x -> {
@@ -17,7 +18,7 @@ public class FileWriter {
                 throw new RuntimeException(e);
             }
         });
-
         fileWriter.close();
     }
+
 }

@@ -1,18 +1,23 @@
 package com.avandy.dataset.ui;
 
 import com.avandy.dataset.generator.Generator;
-import com.avandy.dataset.ui.buttons.SetButton;
+import com.avandy.dataset.util.Saver;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Gui extends JFrame {
     public static JTextField rowsCount;
     public static DefaultTableModel model;
-    private static final Object[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "FIO", "Age", "Avg grade", "Car", "Color"};
+    private final Object[] MAIN_TABLE_HEADERS = {"", "Int", "Long", "FIO", "Age", "Avg grade", "Car", "Color"};
+    private final String[] saveFormat = new String[]{"csv", "json"};
+    private final JComboBox<String> saveFormatComboBox;
 
     public Gui() {
         setResizable(false);
@@ -76,6 +81,9 @@ public class Gui extends JFrame {
         table.getColumnModel().getColumn(2).setMaxWidth(160);
         table.getColumnModel().getColumn(2).setPreferredWidth(160);
         table.getColumnModel().getColumn(4).setMaxWidth(42);
+        table.getColumnModel().getColumn(4).setPreferredWidth(42);
+        table.getColumnModel().getColumn(5).setMaxWidth(90);
+        table.getColumnModel().getColumn(5).setPreferredWidth(90);
 
         table.setAutoCreateRowSorter(true);
         scrollPane.setViewportView(table);
@@ -90,19 +98,44 @@ public class Gui extends JFrame {
         generateButton.setFocusable(false);
         generateButton.setContentAreaFilled(false);
         generateButton.setBorderPainted(true);
-
+        getContentPane().add(generateButton);
         generateButton.addActionListener(e -> {
             new Generator().generate();
         });
-        getContentPane().add(generateButton);
+
+
+        // Формат выгрузки
+        saveFormatComboBox = new JComboBox<>();
+        saveFormatComboBox.setBounds(1065, 10, 55, 22);
+        saveFormatComboBox.setBackground(new Color(238, 238, 238));
+        saveFormatComboBox.setFont(new Font("Tahoma", Font.BOLD, 12));
+        saveFormatComboBox.setEditable(false);
+        saveFormatComboBox.setModel(new DefaultComboBoxModel<>(saveFormat));
+        this.getContentPane().add(saveFormatComboBox);
 
         // Выгрузка в файл
         JButton exportButton = new JButton("export");
         exportButton.setFocusable(false);
         exportButton.setContentAreaFilled(false);
         exportButton.setBorderPainted(true);
-        exportButton.setBounds(180, 10, 77, 22);
+        exportButton.setBounds(1133, 10, 77, 22);
         getContentPane().add(exportButton);
+        exportButton.addActionListener(e -> {
+            try {
+                if (Generator.rows.size() > 0) {
+                    JFileChooser saver = new JFileChooser();
+                    File file = new File(System.getProperty("user.home") +
+                            System.getProperty("file.separator") + "Desktop");
+                    saver.setCurrentDirectory(file);
+                    int res = saver.showDialog(null, "Save");
+                    if (res == JFileChooser.APPROVE_OPTION) {
+                        new Saver().saveCsv(Generator.rows, saver.getSelectedFile() + "." + saveFormatComboBox.getSelectedItem());
+                    }
+                } else System.out.println("Нет данных для выгрузки");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         // Количество строк для генерации
         rowsCount = new JTextField();
