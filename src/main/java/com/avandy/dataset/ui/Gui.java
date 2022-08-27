@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Gui extends JFrame {
     public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color"};
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
-    public static JTextField rowsCount;
+    private static JTextField rowsCount;
     public static DefaultTableModel model;
     private final JComboBox<String> saveFormatComboBox;
 
@@ -98,10 +98,7 @@ public class Gui extends JFrame {
         generateButton.setContentAreaFilled(false);
         generateButton.setBorderPainted(true);
         getContentPane().add(generateButton);
-        generateButton.addActionListener(e -> {
-            new Generator().generate(rowsCount.getText());
-        });
-
+        generateButton.addActionListener(e -> new Generator().generate(rowsCount.getText()));
 
         // Формат выгрузки
         saveFormatComboBox = new JComboBox<>();
