@@ -15,7 +15,7 @@ public class Saver {
         Gui.setStatus("Export..");
         long start = System.currentTimeMillis();
         Writer fileWriter = new FileWriter(saver.getSelectedFile() + "." + Gui.saveFormatComboBox.getSelectedItem(), false);
-        fileWriter.write(String.join(";", Gui.MAIN_TABLE_HEADERS) + "\n");
+        fileWriter.write(String.join(";", Gui.MAIN_TABLE_HEADERS) + ";\n");
 
         for (int i = 0; i < Gui.model.getRowCount(); i++) {
             for (int j = 0; j < Gui.model.getColumnCount(); j++) {

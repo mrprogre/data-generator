@@ -131,14 +131,11 @@ public class Gui extends JFrame {
 
         generateButton.addActionListener(e -> {
             long rows = Long.parseLong(rowsCount.getText());
-
-            if (rows <= 1_000_000) {
+            if (rows > 1_000_000) {
+                rows = 1_000_000;
                 rowsCount.setText(String.valueOf(rows));
-                new Generator().generate(rows);
-
-            } else {
-                new Thread(() -> new Generator().generate(rows)).start();
             }
+            new Generator().generate(rows);
         });
 
         generateButton.addMouseListener(new MouseAdapter() {
@@ -153,45 +150,18 @@ public class Gui extends JFrame {
             }
         });
 
-        // Остановка генерации строк
-        JButton stopGeneration = new JButton();
-        stopGeneration.setIcon(STOP_BUTTON_ICON);
-        stopGeneration.setFocusable(false);
-        stopGeneration.setContentAreaFilled(false);
-        stopGeneration.setBorderPainted(false);
-        stopGeneration.setBounds(topLeftX + 110, topLeftY, BUTTON_WIDTH, 22);
-        getContentPane().add(stopGeneration);
-
-        stopGeneration.addActionListener(e -> {
-            Generator.isGenerationStop.set(true);
-            Saver.isExportStop.set(true);
-            setStatus("Stopped");
-        });
-
-        stopGeneration.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                stopGeneration.setIcon(WHEN_MOUSE_ON_STOP_BUTTON_ICON);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                stopGeneration.setIcon(STOP_BUTTON_ICON);
-            }
-        });
-
         // Статус
         statusLabel = new JLabel();
-        statusLabel.setBounds(topLeftX + 156, topLeftY + 4, 300, 14);
+        statusLabel.setBounds(topLeftX + 110, topLeftY + 4, 300, 14);
         getContentPane().add(statusLabel);
 
         /* TOP RIGHT */
-        int rightTopX = 1032;
-        int rightTopY = 10;
+        int topRightX = 990;
+        int topRightY = 10;
 
         // Формат выгрузки
         saveFormatComboBox = new JComboBox<>();
-        saveFormatComboBox.setBounds(rightTopX, rightTopY, 55, 22);
+        saveFormatComboBox.setBounds(topRightX, topRightY, 55, 22);
         saveFormatComboBox.setBackground(new Color(238, 238, 238));
         saveFormatComboBox.setFont(new Font("Tahoma", Font.BOLD, 12));
         saveFormatComboBox.setEditable(false);
@@ -203,11 +173,10 @@ public class Gui extends JFrame {
         exportButton.setIcon(EXPORT_BUTTON_ICON);
         exportButton.setFocusable(false);
         exportButton.setContentAreaFilled(false);
-        exportButton.setBorderPainted(true);
-        exportButton.setBounds(rightTopX + 60, rightTopY, BUTTON_WIDTH, 22);
+        exportButton.setBorderPainted(false);
+        exportButton.setBounds(topRightX + 60, topRightY, BUTTON_WIDTH, 22);
         getContentPane().add(exportButton);
         exportButton.addActionListener(e -> {
-
             if (model.getRowCount() > 0) {
                 JFileChooser saver = new JFileChooser();
                 File file = new File(System.getProperty("user.home") +
@@ -229,13 +198,39 @@ public class Gui extends JFrame {
             }
         });
 
+        // Остановка экспорта строк
+        JButton stopGeneration = new JButton();
+        stopGeneration.setIcon(STOP_BUTTON_ICON);
+        stopGeneration.setFocusable(false);
+        stopGeneration.setContentAreaFilled(false);
+        stopGeneration.setBorderPainted(false);
+        stopGeneration.setBounds(topRightX + 100, topRightY, BUTTON_WIDTH, 22);
+        getContentPane().add(stopGeneration);
+
+        stopGeneration.addActionListener(e -> {
+            Saver.isExportStop.set(true);
+            setStatus("Stopped");
+        });
+
+        stopGeneration.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                stopGeneration.setIcon(WHEN_MOUSE_ON_STOP_BUTTON_ICON);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                stopGeneration.setIcon(STOP_BUTTON_ICON);
+            }
+        });
+
         // Очистка модели
         JButton clearButton = new JButton();
         clearButton.setIcon(CLEAR_BUTTON_ICON);
         clearButton.setFocusable(false);
         clearButton.setContentAreaFilled(false);
-        clearButton.setBorderPainted(true);
-        clearButton.setBounds(rightTopX + 101, rightTopY, BUTTON_WIDTH, 22);
+        clearButton.setBorderPainted(false);
+        clearButton.setBounds(topRightX + 143, topRightY, BUTTON_WIDTH, 22);
         getContentPane().add(clearButton);
         clearButton.addActionListener(e -> {
             if (model.getRowCount() > 0) {
