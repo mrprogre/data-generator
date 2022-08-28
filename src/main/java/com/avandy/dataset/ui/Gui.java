@@ -22,6 +22,8 @@ public class Gui extends JFrame {
     public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color"};
     public static JComboBox<String> saveFormatComboBox;
     private static final ImageIcon LOGO_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/icons/logo.png")));
+    public static final ImageIcon CLEAR_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/icons/clear.png")));
+    public static final ImageIcon EXPORT_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/icons/export.png")));
     private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
     private static JTextField rowsCount;
@@ -112,9 +114,13 @@ public class Gui extends JFrame {
             setStatus("rows created in " + (System.currentTimeMillis() - start) + " ms.");
         });
 
+        /* RIGHT TOP */
+        int rightTopX = 1032;
+        int rightTopY = 10;
+
         // Формат выгрузки
         saveFormatComboBox = new JComboBox<>();
-        saveFormatComboBox.setBounds(1028, 10, 55, 22);
+        saveFormatComboBox.setBounds(rightTopX, rightTopY, 55, 22);
         saveFormatComboBox.setBackground(new Color(238, 238, 238));
         saveFormatComboBox.setFont(new Font("Tahoma", Font.BOLD, 12));
         saveFormatComboBox.setEditable(false);
@@ -122,11 +128,12 @@ public class Gui extends JFrame {
         this.getContentPane().add(saveFormatComboBox);
 
         // Выгрузка в файл
-        JButton exportButton = new JButton("export");
+        JButton exportButton = new JButton();
+        exportButton.setIcon(EXPORT_BUTTON_ICON);
         exportButton.setFocusable(false);
         exportButton.setContentAreaFilled(false);
         exportButton.setBorderPainted(true);
-        exportButton.setBounds(1093, 10, 77, 22);
+        exportButton.setBounds(rightTopX + 60, rightTopY, 36, 22);
         getContentPane().add(exportButton);
         exportButton.addActionListener(e -> {
             try {
@@ -149,6 +156,21 @@ public class Gui extends JFrame {
             }
         });
 
+        // Очистка модели
+        JButton clearButton = new JButton();
+        clearButton.setIcon(CLEAR_BUTTON_ICON);
+        clearButton.setFocusable(false);
+        clearButton.setContentAreaFilled(false);
+        clearButton.setBorderPainted(true);
+        clearButton.setBounds(rightTopX + 101, rightTopY, 36, 22);
+        getContentPane().add(clearButton);
+        clearButton.addActionListener(e -> {
+            if (model.getRowCount() > 0) {
+                model.setRowCount(0);
+            }
+        });
+
+
         // Количество строк для генерации
         rowsCount = new JTextField();
         rowsCount.setBounds(10, 10, 64, 22);
@@ -163,7 +185,6 @@ public class Gui extends JFrame {
         labelSign.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelSign.setBounds(1113, 543, 57, 14);
         getContentPane().add(labelSign);
-
         labelSign.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -197,9 +218,14 @@ public class Gui extends JFrame {
         });
 
         // Статус
-        statusLabel = new JLabel();
+        statusLabel = new
+
+                JLabel();
         statusLabel.setBounds(180, 14, 300, 14);
-        getContentPane().add(statusLabel);
+
+        getContentPane().
+
+                add(statusLabel);
 
         setVisible(true);
     }
