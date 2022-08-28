@@ -39,7 +39,8 @@ public class Generator {
                     Randomizer.getRandomAge(minAge, maxAge),
                     Randomizer.getRandomDouble(minGrade, maxGrade),
                     data.getCar(),
-                    data.getColor()
+                    data.getColor(),
+                    data.getCountry()
             });
         }
     }

@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class Gui extends JFrame {
     public static DefaultTableModel model;
-    public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color"};
+    public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color", "Country"};
     public static JComboBox<String> saveFormatComboBox;
     private static final ImageIcon LOGO_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/icons/logo.png")));
     public static final ImageIcon CLEAR_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/icons/clear.png")));
@@ -48,7 +48,7 @@ public class Gui extends JFrame {
         model = new DefaultTableModel(new Object[][]{
         }, MAIN_TABLE_HEADERS) {
             final boolean[] columnEditable = new boolean[]{
-                    false, false, false, false, false, false, false, false
+                    false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int row, int column) {
@@ -57,7 +57,7 @@ public class Gui extends JFrame {
 
             // Сортировка
             final Class[] types_unique = {Integer.class, Integer.class, Long.class, String.class, Integer.class,
-                    Double.class, String.class, String.class};
+                    Double.class, String.class, String.class, String.class};
 
             @Override
             public Class getColumnClass(int columnIndex) {
@@ -95,7 +95,6 @@ public class Gui extends JFrame {
         table.getColumnModel().getColumn(4).setPreferredWidth(50);
         table.getColumnModel().getColumn(5).setMaxWidth(90);
         table.getColumnModel().getColumn(5).setPreferredWidth(90);
-
         table.setAutoCreateRowSorter(true);
         scrollPane.setViewportView(table);
 
@@ -117,6 +116,19 @@ public class Gui extends JFrame {
         /* RIGHT TOP */
         int rightTopX = 1032;
         int rightTopY = 10;
+
+        // кнопка
+        JButton getSelectedColumnDataButton = new JButton();
+        getSelectedColumnDataButton.setIcon(CLEAR_BUTTON_ICON);
+        getSelectedColumnDataButton.setFocusable(false);
+        getSelectedColumnDataButton.setContentAreaFilled(false);
+        getSelectedColumnDataButton.setBorderPainted(true);
+        getSelectedColumnDataButton.setBounds(991, rightTopY, 36, 22);
+        getContentPane().add(getSelectedColumnDataButton);
+        getSelectedColumnDataButton.addActionListener(e -> {
+            int[] selectedColumns = table.getSelectedColumns();
+
+        });
 
         // Формат выгрузки
         saveFormatComboBox = new JComboBox<>();
@@ -170,7 +182,6 @@ public class Gui extends JFrame {
             }
         });
 
-
         // Количество строк для генерации
         rowsCount = new JTextField();
         rowsCount.setBounds(10, 10, 64, 22);
@@ -178,7 +189,7 @@ public class Gui extends JFrame {
         rowsCount.setText("1000");
         //rowsCount.setColumns(8);
 
-        //My sign
+        // Подпись
         JLabel labelSign = new JLabel("mrprogre");
         labelSign.setForeground(new Color(0, 0, 0));
         //labelSign.setEnabled(false);
@@ -218,15 +229,9 @@ public class Gui extends JFrame {
         });
 
         // Статус
-        statusLabel = new
-
-                JLabel();
+        statusLabel = new JLabel();
         statusLabel.setBounds(180, 14, 300, 14);
-
-        getContentPane().
-
-                add(statusLabel);
-
+        getContentPane().add(statusLabel);
         setVisible(true);
     }
 
