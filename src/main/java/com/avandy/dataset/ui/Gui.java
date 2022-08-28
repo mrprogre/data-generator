@@ -21,14 +21,26 @@ public class Gui extends JFrame {
     public static DefaultTableModel model;
     public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color", "Country"};
     public static JComboBox<String> saveFormatComboBox;
-    private static final ImageIcon LOGO_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/icons/logo.png")));
-    public static final ImageIcon CLEAR_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/icons/clear.png")));
-    public static final ImageIcon EXPORT_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/icons/export.png")));
+    private static final ImageIcon LOGO_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/logo.png")));
+    private static final ImageIcon CLEAR_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/clear.png")));
+    private static final ImageIcon EXPORT_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/export.png")));
+    private static final ImageIcon START_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/start.png")));
+    private static final ImageIcon WHEN_MOUSE_ON_START_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/start2.png")));
+    private static final ImageIcon STOP_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/stop.png")));
+    private static final ImageIcon WHEN_MOUSE_ON_STOP_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/stop2.png")));
     private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
     private static JTextField rowsCount;
     private long start;
     private final JLabel statusLabel;
+    private static final int BUTTON_WIDTH = 36;
 
     public Gui() {
         setResizable(false);
@@ -98,37 +110,77 @@ public class Gui extends JFrame {
         table.setAutoCreateRowSorter(true);
         scrollPane.setViewportView(table);
 
+        /* TOP LEFT */
+        int topLeftX = 10;
+        int topLeftY = 10;
+
+        // Количество строк для генерации
+        rowsCount = new JTextField();
+        rowsCount.setBounds(topLeftX, topLeftY, 56, 22);
+        getContentPane().add(rowsCount);
+        rowsCount.setText("1000");
+
         // Создание строк
-        JButton generateButton = new JButton("generate");
-        generateButton.setBounds(80, 10, 90, 22);
+        JButton generateButton = new JButton();
+        generateButton.setIcon(START_BUTTON_ICON);
+        generateButton.setBounds(topLeftX + 70, topLeftY, BUTTON_WIDTH, 22);
         //generateButton.setIcon(icon);
         //generateButton.setBackground(new Color(190, 225, 255));
         generateButton.setFocusable(false);
         generateButton.setContentAreaFilled(false);
-        generateButton.setBorderPainted(true);
+        generateButton.setBorderPainted(false);
         getContentPane().add(generateButton);
+
         generateButton.addActionListener(e -> {
             start = System.currentTimeMillis();
             new Generator().generate(rowsCount.getText());
             setStatus("rows created in " + (System.currentTimeMillis() - start) + " ms.");
         });
 
-        /* RIGHT TOP */
+        generateButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                generateButton.setIcon(WHEN_MOUSE_ON_START_BUTTON_ICON);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                generateButton.setIcon(START_BUTTON_ICON);
+            }
+        });
+
+        // Остановка генерации строк
+        JButton stopGeneration = new JButton();
+        stopGeneration.setIcon(STOP_BUTTON_ICON);
+        stopGeneration.setFocusable(false);
+        stopGeneration.setContentAreaFilled(false);
+        stopGeneration.setBorderPainted(false);
+        stopGeneration.setBounds(topLeftX + 110, topLeftY, BUTTON_WIDTH, 22);
+        getContentPane().add(stopGeneration);
+
+        stopGeneration.addActionListener(e -> {
+        });
+
+        stopGeneration.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                stopGeneration.setIcon(WHEN_MOUSE_ON_STOP_BUTTON_ICON);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                stopGeneration.setIcon(STOP_BUTTON_ICON);
+            }
+        });
+
+        // Статус
+        statusLabel = new JLabel();
+        statusLabel.setBounds(topLeftX + 156, topLeftY + 4, 300, 14);
+        getContentPane().add(statusLabel);
+
+        /* TOP RIGHT */
         int rightTopX = 1032;
         int rightTopY = 10;
-
-        // кнопка
-        JButton getSelectedColumnDataButton = new JButton();
-        getSelectedColumnDataButton.setIcon(CLEAR_BUTTON_ICON);
-        getSelectedColumnDataButton.setFocusable(false);
-        getSelectedColumnDataButton.setContentAreaFilled(false);
-        getSelectedColumnDataButton.setBorderPainted(true);
-        getSelectedColumnDataButton.setBounds(991, rightTopY, 36, 22);
-        getContentPane().add(getSelectedColumnDataButton);
-        getSelectedColumnDataButton.addActionListener(e -> {
-            int[] selectedColumns = table.getSelectedColumns();
-
-        });
 
         // Формат выгрузки
         saveFormatComboBox = new JComboBox<>();
@@ -145,7 +197,7 @@ public class Gui extends JFrame {
         exportButton.setFocusable(false);
         exportButton.setContentAreaFilled(false);
         exportButton.setBorderPainted(true);
-        exportButton.setBounds(rightTopX + 60, rightTopY, 36, 22);
+        exportButton.setBounds(rightTopX + 60, rightTopY, BUTTON_WIDTH, 22);
         getContentPane().add(exportButton);
         exportButton.addActionListener(e -> {
             try {
@@ -174,20 +226,13 @@ public class Gui extends JFrame {
         clearButton.setFocusable(false);
         clearButton.setContentAreaFilled(false);
         clearButton.setBorderPainted(true);
-        clearButton.setBounds(rightTopX + 101, rightTopY, 36, 22);
+        clearButton.setBounds(rightTopX + 101, rightTopY, BUTTON_WIDTH, 22);
         getContentPane().add(clearButton);
         clearButton.addActionListener(e -> {
             if (model.getRowCount() > 0) {
                 model.setRowCount(0);
             }
         });
-
-        // Количество строк для генерации
-        rowsCount = new JTextField();
-        rowsCount.setBounds(10, 10, 64, 22);
-        getContentPane().add(rowsCount);
-        rowsCount.setText("1000");
-        //rowsCount.setColumns(8);
 
         // Подпись
         JLabel labelSign = new JLabel("mrprogre");
@@ -228,10 +273,6 @@ public class Gui extends JFrame {
             }
         });
 
-        // Статус
-        statusLabel = new JLabel();
-        statusLabel.setBounds(180, 14, 300, 14);
-        getContentPane().add(statusLabel);
         setVisible(true);
     }
 
