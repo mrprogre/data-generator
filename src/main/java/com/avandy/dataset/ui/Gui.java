@@ -21,6 +21,12 @@ public class Gui extends JFrame {
     public static DefaultTableModel model;
     public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color", "Country"};
     public static JComboBox<String> saveFormatComboBox;
+    private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
+    private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
+    private final JTextField rowsCount;
+    private static JLabel statusLabel;
+    private static final int BUTTON_WIDTH = 36;
+    // Icons
     private static final ImageIcon LOGO_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
             .createImage(Gui.class.getResource("/icons/logo.png")));
     private static final ImageIcon CLEAR_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
@@ -35,12 +41,6 @@ public class Gui extends JFrame {
             .createImage(Gui.class.getResource("/icons/stop.png")));
     private static final ImageIcon WHEN_MOUSE_ON_STOP_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
             .createImage(Gui.class.getResource("/icons/stop2.png")));
-    private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
-    private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
-    private final JTextField rowsCount;
-    private long start;
-    private final JLabel statusLabel;
-    private static final int BUTTON_WIDTH = 36;
 
     public Gui() {
         setResizable(false);
@@ -124,24 +124,22 @@ public class Gui extends JFrame {
         JButton generateButton = new JButton();
         generateButton.setIcon(START_BUTTON_ICON);
         generateButton.setBounds(topLeftX + 70, topLeftY, BUTTON_WIDTH, 22);
-        //generateButton.setIcon(icon);
-        //generateButton.setBackground(new Color(190, 225, 255));
         generateButton.setFocusable(false);
         generateButton.setContentAreaFilled(false);
         generateButton.setBorderPainted(false);
         getContentPane().add(generateButton);
 
         generateButton.addActionListener(e -> {
-            start = System.currentTimeMillis();
-            // Ограничение в миллион строк
             long rows = Long.parseLong(rowsCount.getText());
-            if (rows > 1_000_000) {
-                rows = 1_000_000;
+
+            if (rows <= 1_000_000) {
                 rowsCount.setText(String.valueOf(rows));
+                new Generator().generate(rows);
+
+            } else {
+                new Thread(() -> new Generator().generate(rows)).start();
+                setStatus("Searching..");
             }
-            new Generator().generate((int) rows);
-            //new Thread(() -> new Generator().generate(finalRows)).start();
-            setStatus("rows created in " + (System.currentTimeMillis() - start) + " ms.");
         });
 
         generateButton.addMouseListener(new MouseAdapter() {
@@ -215,9 +213,7 @@ public class Gui extends JFrame {
                     saver.setCurrentDirectory(file);
                     int res = saver.showDialog(null, "Save");
                     if (res == JFileChooser.APPROVE_OPTION) {
-                        start = System.currentTimeMillis();
                         new Saver().exportData(saver);
-                        setStatus("Export completed in " + (System.currentTimeMillis() - start) + " ms.");
                     }
                 } else {
                     setStatus("No data to export");
@@ -284,7 +280,7 @@ public class Gui extends JFrame {
     }
 
     // Установка статуса для информативности
-    public void setStatus(String status) {
+    public static void setStatus(String status) {
         statusLabel.setText(status);
     }
 
