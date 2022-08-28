@@ -12,4 +12,4 @@ https://www.java.com/ru/download/
 
 https://github.com/mrprogre/avandy-dataset/raw/master/avandy-dataset.jar
 
-![image](https://user-images.githubusercontent.com/45883640/187072621-5db36951-0a5f-4d8e-b81f-0ed2a224a758.png)
+![image](https://user-images.githubusercontent.com/45883640/187094733-77f4ad87-fc50-45ac-8e74-d4566c291f2d.png)
