@@ -2,7 +2,7 @@
 
 Формирование случайных данных разного типа.
 
-10 миллионов строк генерируется за 27 секунд (следите за оперативной памятью).
+1 миллионов строк генерируется за 4 секунды.
 
 На компьютере должна быть установлена Java 8:
 
@@ -12,4 +12,4 @@ https://www.java.com/ru/download/
 
 https://github.com/mrprogre/avandy-dataset/raw/master/avandy-dataset.jar
 
-![image](https://user-images.githubusercontent.com/45883640/187063971-5172267b-05e2-44e4-b02d-d68a64a877fa.png)
+![image](https://user-images.githubusercontent.com/45883640/187072621-5db36951-0a5f-4d8e-b81f-0ed2a224a758.png)
