@@ -138,7 +138,6 @@ public class Gui extends JFrame {
 
             } else {
                 new Thread(() -> new Generator().generate(rows)).start();
-                setStatus("Searching..");
             }
         });
 
@@ -164,6 +163,9 @@ public class Gui extends JFrame {
         getContentPane().add(stopGeneration);
 
         stopGeneration.addActionListener(e -> {
+            Generator.isGenerationStop.set(true);
+            Saver.isExportStop.set(true);
+            setStatus("Stopped");
         });
 
         stopGeneration.addMouseListener(new MouseAdapter() {
@@ -205,21 +207,25 @@ public class Gui extends JFrame {
         exportButton.setBounds(rightTopX + 60, rightTopY, BUTTON_WIDTH, 22);
         getContentPane().add(exportButton);
         exportButton.addActionListener(e -> {
-            try {
-                if (model.getRowCount() > 0) {
-                    JFileChooser saver = new JFileChooser();
-                    File file = new File(System.getProperty("user.home") +
-                            System.getProperty("file.separator") + "Desktop");
-                    saver.setCurrentDirectory(file);
-                    int res = saver.showDialog(null, "Save");
-                    if (res == JFileChooser.APPROVE_OPTION) {
-                        new Saver().exportData(saver);
-                    }
-                } else {
-                    setStatus("No data to export");
+
+            if (model.getRowCount() > 0) {
+                JFileChooser saver = new JFileChooser();
+                File file = new File(System.getProperty("user.home") +
+                        System.getProperty("file.separator") + "Desktop");
+                saver.setCurrentDirectory(file);
+                int res = saver.showDialog(null, "Save");
+                if (res == JFileChooser.APPROVE_OPTION) {
+                    //new Saver().exportData(saver);
+                    new Thread(() -> {
+                        try {
+                            new Saver().exportData(saver);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }).start();
                 }
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } else {
+                setStatus("No data to export");
             }
         });
 

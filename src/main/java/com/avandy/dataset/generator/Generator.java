@@ -6,8 +6,10 @@ import com.avandy.dataset.util.Randomizer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Generator {
+    public static AtomicBoolean isGenerationStop = new AtomicBoolean(false);
     public static List<String> rows = new ArrayList<>();
     private final Data data;
 
@@ -29,8 +31,11 @@ public class Generator {
         if (Gui.model.getRowCount() > 0) Gui.model.setRowCount(0);
         if (rows.size() > 0) rows.clear();
 
+        Gui.setStatus("Search..");
         long start = System.currentTimeMillis();
         for (int i = 1; i <= rowsCount; i++) {
+            if (isGenerationStop.get()) return;
+
             Row row = Row.builder()
                     .num(i)
                     .intData(Randomizer.getRandomInt())
@@ -47,5 +52,6 @@ public class Generator {
                     row.getAge(), row.getDoubleData(), row.getCar(), row.getColor(), row.getCountry()});
         }
         Gui.setStatus("Rows created in " + (System.currentTimeMillis() - start) + " ms.");
+        isGenerationStop.set(false);
     }
 }
