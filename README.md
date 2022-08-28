@@ -1,4 +1,4 @@
-# avandy-dataset (open source)
+# avandy-random-data-generator (open source)
 
 Формирование случайных данных разного типа.
 
