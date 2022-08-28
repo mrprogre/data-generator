@@ -15,12 +15,11 @@ public class Generator {
         this.data = new Data();
     }
 
-    public void generate(String rowCount) {
+    public void generate(int rowCount) {
         generateRows(rowCount);
     }
 
-    private void generateRows(String rowsCount) {
-        int rowsToGenerate = Integer.parseInt(rowsCount);
+    private void generateRows(int rowsCount) {
         final int minAge = 18;
         final int maxAge = 50;
         final int minGrade = 2;
@@ -31,7 +30,7 @@ public class Generator {
         if (rows.size() > 0) rows.clear();
 
 
-        for (int i = 1; i <= rowsToGenerate; i++) {
+        for (int i = 1; i <= rowsCount; i++) {
             Row row = Row.builder()
                     .num(i)
                     .intData(Randomizer.getRandomInt())

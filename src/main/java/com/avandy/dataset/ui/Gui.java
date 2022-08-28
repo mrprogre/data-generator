@@ -133,7 +133,9 @@ public class Gui extends JFrame {
 
         generateButton.addActionListener(e -> {
             start = System.currentTimeMillis();
-            new Generator().generate(rowsCount.getText());
+            int rows = Integer.parseInt(rowsCount.getText());
+            if (rows > 1000000) rows = 1000000;
+            new Generator().generate(rows);
             setStatus("rows created in " + (System.currentTimeMillis() - start) + " ms.");
         });
 
