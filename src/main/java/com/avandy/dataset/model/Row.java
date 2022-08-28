@@ -3,6 +3,8 @@ package com.avandy.dataset.model;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 public class Row {
@@ -15,4 +17,7 @@ public class Row {
     private String car;
     private String color;
     private String country;
+    private int orderCount;
+    private double orderAmountSum;
+    private LocalDate lastPurchaseDate;
 }

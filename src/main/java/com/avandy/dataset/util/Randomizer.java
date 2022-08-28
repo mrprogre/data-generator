@@ -16,7 +16,7 @@ public class Randomizer {
         return random.nextInt(value);
     }
 
-    public int getRandomAge(int min, int max) {
+    public int getRandomIntInterval(int min, int max) {
         return random.nextInt(max + 1 - min) + min;
     }
 

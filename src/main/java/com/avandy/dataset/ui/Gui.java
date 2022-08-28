@@ -15,11 +15,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Gui extends JFrame {
     public static DefaultTableModel model;
-    public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color", "Country"};
+    public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade",
+            "Car", "Color", "Country", "Orders", "Sales", "Order_date"};
     public static JComboBox<String> saveFormatComboBox;
     private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
@@ -31,8 +33,12 @@ public class Gui extends JFrame {
             .createImage(Gui.class.getResource("/icons/logo.png")));
     private static final ImageIcon CLEAR_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
             .createImage(Gui.class.getResource("/icons/clear.png")));
+    private static final ImageIcon WHEN_MOUSE_ON_CLEAR_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/clear2.png")));
     private static final ImageIcon EXPORT_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
             .createImage(Gui.class.getResource("/icons/export.png")));
+    private static final ImageIcon WHEN_MOUSE_ON_EXPORT_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/export2.png")));
     private static final ImageIcon START_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
             .createImage(Gui.class.getResource("/icons/start.png")));
     private static final ImageIcon WHEN_MOUSE_ON_START_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
@@ -60,7 +66,7 @@ public class Gui extends JFrame {
         model = new DefaultTableModel(new Object[][]{
         }, MAIN_TABLE_HEADERS) {
             final boolean[] columnEditable = new boolean[]{
-                    false, false, false, false, false, false, false, false, false
+                    false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int row, int column) {
@@ -69,7 +75,8 @@ public class Gui extends JFrame {
 
             // Сортировка
             final Class[] types_unique = {Integer.class, Integer.class, Long.class, String.class, Integer.class,
-                    Double.class, String.class, String.class, String.class};
+                    Double.class, String.class, String.class, String.class, Integer.class, Double.class, LocalDate.class
+            };
 
             @Override
             public Class getColumnClass(int columnIndex) {
@@ -86,12 +93,15 @@ public class Gui extends JFrame {
         table.getColumnModel().getColumn(0).setCellRenderer(rendererCenter);
         table.getColumnModel().getColumn(4).setCellRenderer(rendererCenter);
         table.getColumnModel().getColumn(5).setCellRenderer(rendererCenter);
+        table.getColumnModel().getColumn(9).setCellRenderer(rendererCenter);
+        table.getColumnModel().getColumn(11).setCellRenderer(rendererCenter);
 
         DefaultTableCellRenderer rendererLeft = new DefaultTableCellRenderer();
         rendererLeft.setHorizontalAlignment(JLabel.LEFT);
         table.getColumnModel().getColumn(1).setCellRenderer(rendererLeft);
         table.getColumnModel().getColumn(2).setCellRenderer(rendererLeft);
         table.getColumnModel().getColumn(3).setCellRenderer(rendererLeft);
+        table.getColumnModel().getColumn(10).setCellRenderer(rendererLeft);
 
         table.setRowHeight(28);
         table.setColumnSelectionAllowed(true);
@@ -122,6 +132,7 @@ public class Gui extends JFrame {
 
         // Создание строк
         JButton generateButton = new JButton();
+        generateButton.setToolTipText("generate data");
         generateButton.setIcon(START_BUTTON_ICON);
         generateButton.setBounds(topLeftX + 70, topLeftY, BUTTON_WIDTH, 22);
         generateButton.setFocusable(false);
@@ -170,6 +181,7 @@ public class Gui extends JFrame {
 
         // Выгрузка в файл
         JButton exportButton = new JButton();
+        exportButton.setToolTipText("export data");
         exportButton.setIcon(EXPORT_BUTTON_ICON);
         exportButton.setFocusable(false);
         exportButton.setContentAreaFilled(false);
@@ -198,8 +210,21 @@ public class Gui extends JFrame {
             }
         });
 
+        exportButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exportButton.setIcon(WHEN_MOUSE_ON_EXPORT_BUTTON_ICON);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exportButton.setIcon(EXPORT_BUTTON_ICON);
+            }
+        });
+
         // Остановка экспорта строк
         JButton stopGeneration = new JButton();
+        stopGeneration.setToolTipText("export stop");
         stopGeneration.setIcon(STOP_BUTTON_ICON);
         stopGeneration.setFocusable(false);
         stopGeneration.setContentAreaFilled(false);
@@ -226,6 +251,7 @@ public class Gui extends JFrame {
 
         // Очистка модели
         JButton clearButton = new JButton();
+        clearButton.setToolTipText("clear table");
         clearButton.setIcon(CLEAR_BUTTON_ICON);
         clearButton.setFocusable(false);
         clearButton.setContentAreaFilled(false);
@@ -235,6 +261,18 @@ public class Gui extends JFrame {
         clearButton.addActionListener(e -> {
             if (model.getRowCount() > 0) {
                 model.setRowCount(0);
+            }
+        });
+
+        clearButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                clearButton.setIcon(WHEN_MOUSE_ON_CLEAR_BUTTON_ICON);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                clearButton.setIcon(CLEAR_BUTTON_ICON);
             }
         });
 
