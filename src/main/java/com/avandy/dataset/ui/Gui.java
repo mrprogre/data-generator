@@ -20,8 +20,8 @@ import java.util.Objects;
 
 public class Gui extends JFrame {
     public static DefaultTableModel model;
-    public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade",
-            "Car", "Color", "Country", "Orders", "Sales", "Order_date"};
+    public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg grade",
+            "Car", "Color", "Country", "Orders", "Sales", "Last order"};
     public static JComboBox<String> saveFormatComboBox;
     private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
@@ -74,8 +74,8 @@ public class Gui extends JFrame {
             }
 
             // Сортировка
-            final Class[] types_unique = {Integer.class, Integer.class, Long.class, String.class, Integer.class,
-                    Double.class, String.class, String.class, String.class, Integer.class, Double.class, LocalDate.class
+            final Class[] types_unique = {Integer.class, Integer.class, Long.class, String.class, Byte.class,
+                    Double.class, String.class, String.class, String.class, Byte.class, Double.class, LocalDate.class
             };
 
             @Override

@@ -12,12 +12,12 @@ public class Row {
     private int intData;
     private long longData;
     private String human;
-    private int age;
+    private byte age;
     private double doubleData;
     private String car;
     private String color;
     private String country;
-    private int orderCount;
+    private byte orderCount;
     private double orderAmountSum;
-    private LocalDate lastPurchaseDate;
+    private LocalDate lastOrder;
 }
