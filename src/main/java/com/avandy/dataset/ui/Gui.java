@@ -37,7 +37,7 @@ public class Gui extends JFrame {
             .createImage(Gui.class.getResource("/icons/stop2.png")));
     private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
-    private static JTextField rowsCount;
+    private final JTextField rowsCount;
     private long start;
     private final JLabel statusLabel;
     private static final int BUTTON_WIDTH = 36;
