@@ -20,20 +20,19 @@ import java.util.Objects;
 public class Gui extends JFrame {
     public static DefaultTableModel model;
     public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg_grade", "Car", "Color"};
+    public static JComboBox<String> saveFormatComboBox;
     private static final ImageIcon LOGO_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(Gui.class.getResource("/icons/logo.png")));
     private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
     private static JTextField rowsCount;
-    private final JComboBox<String> saveFormatComboBox;
-    private JLabel generateTime;
-    private long startGenerate;
-    private long endGenerate;
+    private long start;
+    private final JLabel statusLabel;
 
     public Gui() {
         setResizable(false);
-        getContentPane().setBackground(new Color(178, 233, 231));
-        this.setContentPane(new Background());
-        setTitle("avandy-data-generator");
+        getContentPane().setBackground(new Color(233, 223, 178));
+        setContentPane(new Background());
+        setTitle("avandy-random-data-generator");
         setIconImage(LOGO_ICON.getImage());
         setFont(GUI_FONT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,16 +107,10 @@ public class Gui extends JFrame {
         generateButton.setBorderPainted(true);
         getContentPane().add(generateButton);
         generateButton.addActionListener(e -> {
-            startGenerate = System.currentTimeMillis();
+            start = System.currentTimeMillis();
             new Generator().generate(rowsCount.getText());
-            endGenerate = System.currentTimeMillis();
-            generateTime.setText((endGenerate - startGenerate) + " ms.");
+            setStatus("rows created in " + (System.currentTimeMillis() - start) + " ms.");
         });
-
-        // Время генерации
-        generateTime = new JLabel("0 ms.");
-        generateTime.setBounds(180, 14, 60, 14);
-        getContentPane().add(generateTime);
 
         // Формат выгрузки
         saveFormatComboBox = new JComboBox<>();
@@ -137,16 +130,20 @@ public class Gui extends JFrame {
         getContentPane().add(exportButton);
         exportButton.addActionListener(e -> {
             try {
-                if (Generator.rows.size() > 0) {
+                if (model.getRowCount() > 0) {
                     JFileChooser saver = new JFileChooser();
                     File file = new File(System.getProperty("user.home") +
                             System.getProperty("file.separator") + "Desktop");
                     saver.setCurrentDirectory(file);
                     int res = saver.showDialog(null, "Save");
                     if (res == JFileChooser.APPROVE_OPTION) {
-                        new Saver().saveCsv(Generator.rows, saver.getSelectedFile() + "." + saveFormatComboBox.getSelectedItem());
+                        start = System.currentTimeMillis();
+                        new Saver().exportData(saver);
+                        setStatus("Export completed in " + (System.currentTimeMillis() - start) + " ms.");
                     }
-                } else System.out.println("Нет данных для выгрузки");
+                } else {
+                    setStatus("No data to export");
+                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -157,7 +154,7 @@ public class Gui extends JFrame {
         rowsCount.setBounds(10, 10, 64, 22);
         getContentPane().add(rowsCount);
         rowsCount.setText("1000");
-        rowsCount.setColumns(10);
+        //rowsCount.setColumns(8);
 
         //My sign
         JLabel labelSign = new JLabel("mrprogre");
@@ -168,13 +165,11 @@ public class Gui extends JFrame {
         getContentPane().add(labelSign);
 
         labelSign.addMouseListener(new MouseAdapter() {
-            // наведение мышки на письмо
             @Override
             public void mouseEntered(MouseEvent e) {
                 labelSign.setForeground(new Color(40, 36, 180));
             }
 
-            // убрали мышку с письма
             @Override
             public void mouseExited(MouseEvent e) {
                 labelSign.setForeground(new Color(0, 0, 0));
@@ -201,13 +196,24 @@ public class Gui extends JFrame {
             }
         });
 
+        // Статус
+        statusLabel = new JLabel();
+        statusLabel.setBounds(180, 14, 300, 14);
+        getContentPane().add(statusLabel);
+
         setVisible(true);
     }
 
+    // Установка статуса для информативности
+    public void setStatus(String status) {
+        statusLabel.setText(status);
+    }
+
+    // Фон UI
     static class Background extends JPanel {
         public void paintComponent(Graphics g) {
             try {
-                Image im = ImageIO.read(Objects.requireNonNull(this.getClass().getResource("/background/gray.png"))); //gray.png
+                Image im = ImageIO.read(Objects.requireNonNull(this.getClass().getResource("/background/gray.png")));
                 g.drawImage(im, 0, 0, null);
             } catch (IOException e) {
                 e.printStackTrace();
