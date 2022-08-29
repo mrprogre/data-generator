@@ -19,7 +19,8 @@ public class Saver {
 
         for (int i = 0; i < Gui.model.getRowCount(); i++) {
             for (int j = 0; j < Gui.model.getColumnCount(); j++) {
-                fileWriter.write(Gui.model.getValueAt(i, j) + ";");            }
+                fileWriter.write(Gui.model.getValueAt(i, j) + ";");
+            }
             fileWriter.write("\n");
 
             if (isExportStop.get()) {

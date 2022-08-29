@@ -21,10 +21,15 @@ public class Generator {
     }
 
     private void generateRows(long rowsCount) {
-        final int minAge = 18;
-        final int maxAge = 50;
-        final int minGrade = 2;
-        final int maxGrade = 5;
+        int minAge = 18;
+        int maxAge = 50;
+        int minGrade = 2;
+        int maxGrade = 5;
+        int maxOrderCount = 30;
+        int minOrderAmountSum = 40;
+        int maxOrderAmountSum = 20990;
+        int minYear = 2014;
+        int maxYear = 2022;
 
         // очистка таблицы и коллекции перед новой генерацией строк
         if (Gui.model.getRowCount() > 0) Gui.model.setRowCount(0);
@@ -43,9 +48,9 @@ public class Generator {
                     .car(data.getCar())
                     .color(data.getColor())
                     .country(data.getCountry())
-                    .orderCount((byte) Randomizer.getRandomIntInterval(1, 20))
-                    .orderAmountSum(Randomizer.getRandomDouble(40, 8390))
-                    .lastOrder(LocalDate.of(Randomizer.getRandomIntInterval(2010, 2022),
+                    .orderCount((byte) Randomizer.getRandomIntInterval(1, maxOrderCount))
+                    .orderAmountSum(Randomizer.getRandomDouble(minOrderAmountSum, maxOrderAmountSum))
+                    .lastOrder(LocalDate.of(Randomizer.getRandomIntInterval(minYear, maxYear),
                             Randomizer.getRandomIntInterval(1, 12),
                             Randomizer.getRandomIntInterval(1, 28)))
                     .post(data.getPost())
