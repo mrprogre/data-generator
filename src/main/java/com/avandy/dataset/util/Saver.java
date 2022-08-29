@@ -33,5 +33,4 @@ public class Saver {
         Gui.setStatus("Export completed in " + (System.currentTimeMillis() - start) + " ms.");
         isExportStop.set(false);
     }
-
 }
