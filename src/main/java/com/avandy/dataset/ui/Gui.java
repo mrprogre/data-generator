@@ -21,7 +21,7 @@ import java.util.Objects;
 public class Gui extends JFrame {
     public static DefaultTableModel model;
     public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg grade",
-            "Car", "Color", "Country", "Orders", "Sales", "Last order"};
+            "Car", "Color", "Country", "Orders", "Sales", "Last order", "Post"};
     public static JComboBox<String> saveFormatComboBox;
     public static JComboBox<String> rowsCountComboBox;
     private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
@@ -274,7 +274,7 @@ public class Gui extends JFrame {
         model = new DefaultTableModel(new Object[][]{
         }, MAIN_TABLE_HEADERS) {
             final boolean[] columnEditable = new boolean[]{
-                    false, false, false, false, false, false, false, false, false, false, false, false
+                    false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int row, int column) {
@@ -283,7 +283,8 @@ public class Gui extends JFrame {
 
             // Сортировка
             final Class[] types_unique = {Integer.class, Integer.class, Long.class, String.class, Byte.class,
-                    Double.class, String.class, String.class, String.class, Byte.class, Double.class, LocalDate.class
+                    Double.class, String.class, String.class, String.class, Byte.class, Double.class,
+                    LocalDate.class, String.class
             };
 
             @Override
@@ -295,8 +296,8 @@ public class Gui extends JFrame {
         //headers
         JTableHeader header = table.getTableHeader();
         header.setFont(new Font("Tahoma", Font.BOLD, 13));
-        // "№", "Int", "Long", "Name", "Age", "Avg grade", "Car", "Color", "Country", "Orders", "Sales", "Last order"
-        //  0    1      2       3       4      5            6      7        8          9         10       11
+        // "№", "Int", "Long", "Name", "Age", "Avg grade", "Car", "Color", "Country", "Orders", "Sales", "Last order", "Post"
+        //  0    1      2       3       4      5            6      7        8          9         10       11            12
 
         table.getColumnModel().getColumn(0).setMaxWidth(80);
         table.getColumnModel().getColumn(0).setPreferredWidth(40);

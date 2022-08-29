@@ -48,11 +48,12 @@ public class Generator {
                     .lastOrder(LocalDate.of(Randomizer.getRandomIntInterval(2010, 2022),
                             Randomizer.getRandomIntInterval(1, 12),
                             Randomizer.getRandomIntInterval(1, 28)))
+                    .post(data.getPost())
                     .build();
 
             Gui.model.addRow(new Object[]{row.getNum(), row.getIntData(), row.getLongData(), row.getHuman(),
                     row.getAge(), row.getDoubleData(), row.getCar(), row.getColor(), row.getCountry(),
-                    row.getOrderCount(), row.getOrderAmountSum(), row.getLastOrder()
+                    row.getOrderCount(), row.getOrderAmountSum(), row.getLastOrder(), row.getPost()
             });
         }
         Gui.setStatus("Rows created in " + (System.currentTimeMillis() - start) + " ms.");

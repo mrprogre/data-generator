@@ -20,4 +20,5 @@ public class Row {
     private byte orderCount;
     private double orderAmountSum;
     private LocalDate lastOrder;
+    private String post;
 }
