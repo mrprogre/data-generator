@@ -35,11 +35,11 @@ public class Randomizer extends Data {
 
     // Men
     public String getManName() {
-        return menNames[Randomizer.getRandomInt(menNames.length)];
+        return menNames[getRandomInt(menNames.length)];
     }
 
     public String getManSurname() {
-        return menSurnames[Randomizer.getRandomInt(menSurnames.length)];
+        return menSurnames[getRandomInt(menSurnames.length)];
     }
 
     public String getManNameAndSurname() {
@@ -48,11 +48,11 @@ public class Randomizer extends Data {
 
     // Women
     public String getWomanName() {
-        return womenNames[Randomizer.getRandomInt(womenNames.length)];
+        return womenNames[getRandomInt(womenNames.length)];
     }
 
     public String getSurname() {
-        return menSurnames[Randomizer.getRandomInt(menSurnames.length)] + "а";
+        return menSurnames[getRandomInt(menSurnames.length)] + "а";
     }
 
     public String getWomenNameAndSurname() {
@@ -61,26 +61,26 @@ public class Randomizer extends Data {
 
     // Random human
     public String getRandomHuman() {
-        return Randomizer.getRandomBoolean() ? getManNameAndSurname() : getWomenNameAndSurname();
+        return getRandomBoolean() ? getManNameAndSurname() : getWomenNameAndSurname();
     }
 
     // Color
     public String getColor() {
-        return color[Randomizer.getRandomInt(color.length)];
+        return color[getRandomInt(color.length)];
     }
 
     // Car
     public String getCar() {
-        return car[Randomizer.getRandomInt(car.length)];
+        return car[getRandomInt(car.length)];
     }
 
     // Country
     public String getCountry() {
-        return country[Randomizer.getRandomInt(country.length)];
+        return country[getRandomInt(country.length)];
     }
 
     // Должность
     public String getPost() {
-        return post[Randomizer.getRandomInt(post.length)];
+        return post[getRandomInt(post.length)];
     }
 }
