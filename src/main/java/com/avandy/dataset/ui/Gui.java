@@ -55,7 +55,7 @@ public class Gui extends JFrame {
         setIconImage(LOGO_ICON.getImage());
         setFont(GUI_FONT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(260, 120, 1395, 708);
+        setBounds(260, 120, 1400, 708);
         getContentPane().setLayout(null);
 
         /* TOP LEFT */
@@ -230,7 +230,7 @@ public class Gui extends JFrame {
         labelSign.setForeground(new Color(0, 0, 0));
         //labelSign.setEnabled(false);
         labelSign.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelSign.setBounds(1316, 643, 57, 14);
+        labelSign.setBounds(1316, 651, 57, 14);
         getContentPane().add(labelSign);
 
         labelSign.addMouseListener(new MouseAdapter() {
@@ -267,7 +267,7 @@ public class Gui extends JFrame {
 
         //Table
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 40, 1360, 608);
+        scrollPane.setBounds(10, 40, 1365, 608);
         getContentPane().add(scrollPane);
         model = new DefaultTableModel(new Object[][]{
         }, MAIN_TABLE_HEADERS) {
