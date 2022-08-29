@@ -1,22 +1,8 @@
 package com.avandy.dataset.generator;
 
-import com.avandy.dataset.util.Randomizer;
-
 public class Data {
-    // Men
-    public String getManName() {
-        return menNames[Randomizer.getRandomInt(menNames.length)];
-    }
 
-    public String getManSurname() {
-        return menSurnames[Randomizer.getRandomInt(menSurnames.length)];
-    }
-
-    public String getManNameAndSurname() {
-        return getManName() + " " + getManSurname();
-    }
-
-    private final String[] menNames = {"Александр", "Максим", "Михаил", "Артём", "Даниил", "Иван", "Дмитрий", "Кирилл",
+    public static final String[] menNames = {"Александр", "Максим", "Михаил", "Артём", "Даниил", "Иван", "Дмитрий", "Кирилл",
             "Андрей", "Матвей", "Егор", "Илья", "Марк", "Тимофей", "Роман", "Никита", "Алексей", "Лев", "Владимир",
             "Фёдор", "Ярослав", "Константин", "Сергей", "Степан", "Николай", "Георгий", "Владислав", "Павел", "Арсений",
             "Глеб", "Мирон", "Григорий", "Давид", "Макар", "Денис", "Семён", "Евгений", "Платон", "Савелий", "Артемий",
@@ -28,7 +14,7 @@ public class Data {
             "Архип", "Булат", "Геннадий", "Гавриил", "Кузьма", "Прохор", "Тимур"
     };
 
-    private final String[] menSurnames = {"Смирнов", "Иванов", "Кузнецов", "Соколов", "Попов", "Лебедев", "Козлов",
+    public static final String[] menSurnames = {"Смирнов", "Иванов", "Кузнецов", "Соколов", "Попов", "Лебедев", "Козлов",
             "Новиков", "Морозов", "Петров", "Волков", "Соловьёв", "Васильев", "Зайцев", "Павлов", "Семёнов", "Голубев",
             "Виноградов", "Богданов", "Воробьёв", "Фёдоров", "Михайлов", "Беляев", "Тарасов", "Белов", "Комаров",
             "Орлов", "Киселёв", "Макаров", "Андреев", "Ковалёв", "Ильин", "Гусев", "Титов", "Кузьмин", "Кудрявцев",
@@ -57,20 +43,7 @@ public class Data {
             "Субботин", "Фокин", "Блохин", "Селиверстов", "Пестов", "Кондратьев", "Силин", "Меркушев", "Лыткин", "Туров"
     };
 
-    // Women
-    public String getWomanName() {
-        return womenNames[Randomizer.getRandomInt(womenNames.length)];
-    }
-
-    public String getSurname() {
-        return menSurnames[Randomizer.getRandomInt(menSurnames.length)] + "а";
-    }
-
-    public String getWomenNameAndSurname() {
-        return getWomanName() + " " + getSurname();
-    }
-
-    private final String[] womenNames = {"София", "Мария", "Анна", "Виктория", "Алиса", "Анастасия", "Полина",
+    public static final String[] womenNames = {"София", "Мария", "Анна", "Виктория", "Алиса", "Анастасия", "Полина",
             "Александра", "Дарья", "Варвара", "Екатерина", "Ксения", "Арина", "Ева", "Вероника", "Василиса",
             "Милана", "Валерия", "Ульяна", "Кира", "Вера", "Таисия", "Софья", "Маргарита", "Алёна", "Алина",
             "Мирослава", "Кристина", "Диана", "Ольга", "Юлия", "Есения", "Ангелина", "Татьяна", "Стефания",
@@ -84,27 +57,12 @@ public class Data {
             "Аида", "Аксинья", "Галина", "Глафира", "Рада", "Элеонора", "Елизавета"
     };
 
-    // Random human
-    public String getRandomHuman() {
-        return Randomizer.getRandomBoolean() ? getManNameAndSurname() : getWomenNameAndSurname();
-    }
-
-    // Color
-    public String getColor() {
-        return color[Randomizer.getRandomInt(color.length)];
-    }
-
-    private final String[] color = {
+    public static final String[] color = {
             "Коричневый", "Красный", "Синий", "Белый", "Чёрный", "Жёлтый", "Оранжевый",
             "Голубой", "Фиолетовый", "Розовый", "Зелёный", "Серый", "Бирюзовый", "Салатовый"
     };
 
-    // Car
-    public String getCar() {
-        return car[Randomizer.getRandomInt(car.length)];
-    }
-
-    private final String[] car = {
+    public static final String[] car = {
             "Toyota", "Volkswagen", "Ford", "Honda", "Nissan", "Hyundai", "Chevrolet", "KIA", "Renault", "Mercedes",
             "Peugeot", "BMW", "Audi", "Fiat", "Maruti", "Mazda", "Suzuki", "Jeep", "Changan", "Buick", "Skoda",
             "Wuling", "Opel", "Geely", "Subaru", "Mitsubishi", "Citroen", "Dongfeng", "Daihatsu", "Baojun", "Haval",
@@ -112,12 +70,7 @@ public class Data {
             "LandRover", "Foton", "BYD", "MINI", "Roewe", "Cadillac", "LADA"
     };
 
-    // Country
-    public String getCountry() {
-        return country[Randomizer.getRandomInt(country.length)];
-    }
-
-    private final String[] country = {
+    public static final String[] country = {
             "Китай", "США", "Индия", "Япония", "Германия", "Россия", "Индонезия", "Бразилия", "Франция",
             "Великобритания", "Италия", "Мексика", "Турция", "Республика Корея", "Канада", "Испания",
             "Саудовская Аравия", "Китайская Республика", "Австралия", "Иран", "Польша", "Египет", "Таиланд",
@@ -146,12 +99,7 @@ public class Data {
             "Синт-Мартен(Франция)", "Теркс и Кайкос (Брит.)",
     };
 
-    // Должность
-    public String getPost() {
-        return post[Randomizer.getRandomInt(post.length)];
-    }
-
-    private final String[] post = {
+    public static final String[] post = {
             "Генеральный директор", "Директор филиала", "Технический директор",
             "Директор (начальник) вычислительного (информационно-вычислительного) центра", "Директор гостиницы",
             "Директоркотельной", "Директор по связям с инвесторами", "Директор типографии", "Заведующий архивом",

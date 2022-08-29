@@ -6,16 +6,8 @@ import com.avandy.dataset.util.PropertiesUtils;
 import com.avandy.dataset.util.Randomizer;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Generator {
-    public static List<String> rows = new ArrayList<>();
-    private final Data data;
-
-    public Generator() {
-        this.data = new Data();
-    }
 
     public void generate(long rowCount) {
         generateRows(rowCount);
@@ -34,7 +26,6 @@ public class Generator {
 
         // очистка таблицы и коллекции перед новой генерацией строк
         if (Gui.model.getRowCount() > 0) Gui.model.setRowCount(0);
-        if (rows.size() > 0) rows.clear();
 
         Gui.setStatus("Generation..");
         long start = System.currentTimeMillis();
@@ -43,18 +34,18 @@ public class Generator {
                     .num(i)
                     .intData(Randomizer.getRandomInt())
                     .longData(Randomizer.getRandomLong())
-                    .human(data.getRandomHuman())
-                    .age((byte) Randomizer.getRandomIntInterval(minAge, maxAge))
+                    .human(Randomizer.getRandomHuman())
+                    .age((byte) Randomizer.getRandomIntByInterval(minAge, maxAge))
                     .doubleData(Randomizer.getRandomDouble(minGrade, maxGrade))
-                    .car(data.getCar())
-                    .color(data.getColor())
-                    .country(data.getCountry())
-                    .orderCount((byte) Randomizer.getRandomIntInterval(1, maxOrderCount))
+                    .car(Randomizer.getCar())
+                    .color(Randomizer.getColor())
+                    .country(Randomizer.getCountry())
+                    .orderCount((byte) Randomizer.getRandomIntByInterval(1, maxOrderCount))
                     .orderAmountSum(Randomizer.getRandomDouble(minOrderAmountSum, maxOrderAmountSum))
-                    .lastOrder(LocalDate.of(Randomizer.getRandomIntInterval(minYear, maxYear),
-                            Randomizer.getRandomIntInterval(1, 12),
-                            Randomizer.getRandomIntInterval(1, 28)))
-                    .post(data.getPost())
+                    .lastOrder(LocalDate.of(Randomizer.getRandomIntByInterval(minYear, maxYear),
+                            Randomizer.getRandomIntByInterval(1, 12),
+                            Randomizer.getRandomIntByInterval(1, 28)))
+                    .post(Randomizer.getPost())
                     .build();
 
             Gui.model.addRow(new Object[]{row.getNum(), row.getIntData(), row.getLongData(), row.getHuman(),
