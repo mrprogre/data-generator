@@ -3,7 +3,6 @@ package com.avandy.dataset.ui;
 import com.avandy.dataset.generator.Generator;
 import com.avandy.dataset.util.Saver;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -51,13 +50,12 @@ public class Gui extends JFrame {
 
     public Gui() {
         setResizable(false);
-        getContentPane().setBackground(new Color(233, 223, 178));
-        setContentPane(new Background());
+        getContentPane().setBackground(new Color(229, 190, 152));
         setTitle("avandy-random-data-generator");
         setIconImage(LOGO_ICON.getImage());
         setFont(GUI_FONT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(370, 190, 1195, 600);
+        setBounds(330, 160, 1395, 700);
         getContentPane().setLayout(null);
 
         /* TOP LEFT */
@@ -66,7 +64,7 @@ public class Gui extends JFrame {
 
         // Лейбл
         JLabel rowsGenerate = new JLabel("Generate rows: ");
-        rowsGenerate.setBounds(10, 14, 90, 14);
+        rowsGenerate.setBounds(topLeftX - 95, topLeftY + 4, 90, 14);
         getContentPane().add(rowsGenerate);
 
         // Количество строк для генерации
@@ -113,7 +111,7 @@ public class Gui extends JFrame {
         getContentPane().add(statusLabel);
 
         /* TOP RIGHT */
-        int topRightX = 990;
+        int topRightX = 1200;
         int topRightY = 10;
 
         // Лейбл
@@ -232,7 +230,7 @@ public class Gui extends JFrame {
         labelSign.setForeground(new Color(0, 0, 0));
         //labelSign.setEnabled(false);
         labelSign.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelSign.setBounds(1113, 543, 57, 14);
+        labelSign.setBounds(1316, 643, 57, 14);
         getContentPane().add(labelSign);
 
         labelSign.addMouseListener(new MouseAdapter() {
@@ -269,7 +267,7 @@ public class Gui extends JFrame {
 
         //Table
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 40, 1160, 500);
+        scrollPane.setBounds(10, 40, 1360, 600);
         getContentPane().add(scrollPane);
         model = new DefaultTableModel(new Object[][]{
         }, MAIN_TABLE_HEADERS) {
@@ -368,19 +366,6 @@ public class Gui extends JFrame {
         }
         return rowsCount;
     }
-
-    // Фон UI
-    private static class Background extends JPanel {
-        public void paintComponent(Graphics g) {
-            try {
-                Image im = ImageIO.read(Objects.requireNonNull(this.getClass().getResource("/background/gray.png")));
-                g.drawImage(im, 0, 0, null);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
     // Установка статуса для информативности
     public static void setStatus(String status) {
