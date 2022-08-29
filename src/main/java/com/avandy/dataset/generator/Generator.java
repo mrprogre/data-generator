@@ -30,7 +30,7 @@ public class Generator {
         if (Gui.model.getRowCount() > 0) Gui.model.setRowCount(0);
         if (rows.size() > 0) rows.clear();
 
-        Gui.setStatus("Generate..");
+        Gui.setStatus("Generation..");
         long start = System.currentTimeMillis();
         for (int i = 1; i <= rowsCount; i++) {
             Row row = Row.builder()
