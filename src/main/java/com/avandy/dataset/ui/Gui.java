@@ -23,9 +23,10 @@ public class Gui extends JFrame {
     public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg grade",
             "Car", "Color", "Country", "Orders", "Sales", "Last order"};
     public static JComboBox<String> saveFormatComboBox;
+    public static JComboBox<String> rowsCountComboBox;
     private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
-    private final JTextField rowsCount;
+    private static final String[] ROWS_COUNT = new String[]{"1k", "10k", "100k", "1m", "2m", "3m"};
     private static JLabel statusLabel;
     private static final int BUTTON_WIDTH = 36;
     // Icons
@@ -59,96 +60,39 @@ public class Gui extends JFrame {
         setBounds(370, 190, 1195, 600);
         getContentPane().setLayout(null);
 
-        //Table
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 40, 1160, 500);
-        getContentPane().add(scrollPane);
-        model = new DefaultTableModel(new Object[][]{
-        }, MAIN_TABLE_HEADERS) {
-            final boolean[] columnEditable = new boolean[]{
-                    false, false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int row, int column) {
-                return columnEditable[column];
-            }
-
-            // Сортировка
-            final Class[] types_unique = {Integer.class, Integer.class, Long.class, String.class, Byte.class,
-                    Double.class, String.class, String.class, String.class, Byte.class, Double.class, LocalDate.class
-            };
-
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                return this.types_unique[columnIndex];
-            }
-        };
-        JTable table = new JTable(model);
-        //headers
-        JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Tahoma", Font.BOLD, 13));
-        //Cell alignment
-        DefaultTableCellRenderer rendererCenter = new DefaultTableCellRenderer();
-        rendererCenter.setHorizontalAlignment(JLabel.CENTER);
-        table.getColumnModel().getColumn(0).setCellRenderer(rendererCenter);
-        table.getColumnModel().getColumn(4).setCellRenderer(rendererCenter);
-        table.getColumnModel().getColumn(5).setCellRenderer(rendererCenter);
-        table.getColumnModel().getColumn(9).setCellRenderer(rendererCenter);
-        table.getColumnModel().getColumn(11).setCellRenderer(rendererCenter);
-
-        DefaultTableCellRenderer rendererLeft = new DefaultTableCellRenderer();
-        rendererLeft.setHorizontalAlignment(JLabel.LEFT);
-        table.getColumnModel().getColumn(1).setCellRenderer(rendererLeft);
-        table.getColumnModel().getColumn(2).setCellRenderer(rendererLeft);
-        table.getColumnModel().getColumn(3).setCellRenderer(rendererLeft);
-        table.getColumnModel().getColumn(10).setCellRenderer(rendererLeft);
-
-        table.setRowHeight(28);
-        table.setColumnSelectionAllowed(true);
-        table.setCellSelectionEnabled(true);
-        table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        table.setFont(GUI_FONT);
-        table.getColumnModel().getColumn(0).setMaxWidth(80);
-        table.getColumnModel().getColumn(1).setMaxWidth(90);
-        table.getColumnModel().getColumn(1).setPreferredWidth(90);
-        table.getColumnModel().getColumn(2).setMaxWidth(160);
-        table.getColumnModel().getColumn(2).setPreferredWidth(160);
-        table.getColumnModel().getColumn(4).setMaxWidth(50);
-        table.getColumnModel().getColumn(4).setPreferredWidth(50);
-        table.getColumnModel().getColumn(5).setMaxWidth(90);
-        table.getColumnModel().getColumn(5).setPreferredWidth(90);
-        table.setAutoCreateRowSorter(true);
-        scrollPane.setViewportView(table);
-
         /* TOP LEFT */
-        int topLeftX = 10;
+        int topLeftX = 105;
         int topLeftY = 10;
 
+        // Лейбл
+        JLabel rowsGenerate = new JLabel("Generate rows: ");
+        rowsGenerate.setBounds(10, 14, 90, 14);
+        getContentPane().add(rowsGenerate);
+
         // Количество строк для генерации
-        rowsCount = new JTextField();
-        rowsCount.setBounds(topLeftX, topLeftY, 56, 22);
-        getContentPane().add(rowsCount);
-        rowsCount.setText("1000");
+        rowsCountComboBox = new JComboBox<>();
+        rowsCountComboBox.setBounds(topLeftX, topLeftY, 56, 22);
+        rowsCountComboBox.setBackground(new Color(238, 238, 238));
+        rowsCountComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        rowsCountComboBox.setEditable(false);
+        rowsCountComboBox.setModel(new DefaultComboBoxModel<>(ROWS_COUNT));
+        this.getContentPane().add(rowsCountComboBox);
 
         // Создание строк
         JButton generateButton = new JButton();
         generateButton.setToolTipText("generate data");
         generateButton.setIcon(START_BUTTON_ICON);
-        generateButton.setBounds(topLeftX + 70, topLeftY, BUTTON_WIDTH, 22);
+        generateButton.setBounds(topLeftX + 60, topLeftY, BUTTON_WIDTH, 22);
         generateButton.setFocusable(false);
         generateButton.setContentAreaFilled(false);
         generateButton.setBorderPainted(false);
         getContentPane().add(generateButton);
 
         generateButton.addActionListener(e -> {
-            long rows = Long.parseLong(rowsCount.getText());
-            if (rows > 1_000_000) {
-                rows = 1_000_000;
-                rowsCount.setText(String.valueOf(rows));
-            }
+            String row = Objects.requireNonNull(rowsCountComboBox.getSelectedItem()).toString();
+            int rowsCount = getRowsCount(row);
             //new Generator().generate(rows);
-            long finalRows = rows;
-            new Thread(() -> new Generator().generate(finalRows)).start();
+            new Thread(() -> new Generator().generate(rowsCount)).start();
         });
 
         generateButton.addMouseListener(new MouseAdapter() {
@@ -165,12 +109,17 @@ public class Gui extends JFrame {
 
         // Статус
         statusLabel = new JLabel();
-        statusLabel.setBounds(topLeftX + 110, topLeftY + 4, 300, 14);
+        statusLabel.setBounds(topLeftX + 100, topLeftY + 4, 300, 14);
         getContentPane().add(statusLabel);
 
         /* TOP RIGHT */
         int topRightX = 990;
         int topRightY = 10;
+
+        // Лейбл
+        JLabel exportLabel = new JLabel("Export data:");
+        exportLabel.setBounds(topRightX - 77, topRightY + 4, 69, 14);
+        getContentPane().add(exportLabel);
 
         // Формат выгрузки
         saveFormatComboBox = new JComboBox<>();
@@ -285,6 +234,7 @@ public class Gui extends JFrame {
         labelSign.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelSign.setBounds(1113, 543, 57, 14);
         getContentPane().add(labelSign);
+
         labelSign.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -317,12 +267,96 @@ public class Gui extends JFrame {
             }
         });
 
+        //Table
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(10, 40, 1160, 500);
+        getContentPane().add(scrollPane);
+        model = new DefaultTableModel(new Object[][]{
+        }, MAIN_TABLE_HEADERS) {
+            final boolean[] columnEditable = new boolean[]{
+                    false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int row, int column) {
+                return columnEditable[column];
+            }
+
+            // Сортировка
+            final Class[] types_unique = {Integer.class, Integer.class, Long.class, String.class, Byte.class,
+                    Double.class, String.class, String.class, String.class, Byte.class, Double.class, LocalDate.class
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return this.types_unique[columnIndex];
+            }
+        };
+        JTable table = new JTable(model);
+        //headers
+        JTableHeader header = table.getTableHeader();
+        header.setFont(new Font("Tahoma", Font.BOLD, 13));
+        //Cell alignment
+        DefaultTableCellRenderer rendererCenter = new DefaultTableCellRenderer();
+        rendererCenter.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(0).setCellRenderer(rendererCenter);
+        table.getColumnModel().getColumn(4).setCellRenderer(rendererCenter);
+        table.getColumnModel().getColumn(5).setCellRenderer(rendererCenter);
+        table.getColumnModel().getColumn(9).setCellRenderer(rendererCenter);
+        table.getColumnModel().getColumn(11).setCellRenderer(rendererCenter);
+
+        DefaultTableCellRenderer rendererLeft = new DefaultTableCellRenderer();
+        rendererLeft.setHorizontalAlignment(JLabel.LEFT);
+        table.getColumnModel().getColumn(1).setCellRenderer(rendererLeft);
+        table.getColumnModel().getColumn(2).setCellRenderer(rendererLeft);
+        table.getColumnModel().getColumn(3).setCellRenderer(rendererLeft);
+        table.getColumnModel().getColumn(10).setCellRenderer(rendererLeft);
+
+        table.setRowHeight(28);
+        table.setColumnSelectionAllowed(true);
+        table.setCellSelectionEnabled(true);
+        table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        table.setFont(GUI_FONT);
+        table.getColumnModel().getColumn(0).setMaxWidth(80);
+        table.getColumnModel().getColumn(1).setMaxWidth(90);
+        table.getColumnModel().getColumn(1).setPreferredWidth(90);
+        table.getColumnModel().getColumn(2).setMaxWidth(160);
+        table.getColumnModel().getColumn(2).setPreferredWidth(160);
+        table.getColumnModel().getColumn(4).setMaxWidth(50);
+        table.getColumnModel().getColumn(4).setPreferredWidth(50);
+        table.getColumnModel().getColumn(5).setMaxWidth(90);
+        table.getColumnModel().getColumn(5).setPreferredWidth(90);
+        table.setAutoCreateRowSorter(true);
+        scrollPane.setViewportView(table);
+
         setVisible(true);
     }
 
-    // Установка статуса для информативности
-    public static void setStatus(String status) {
-        statusLabel.setText(status);
+    // Маппинг строк в цифры
+    private int getRowsCount(String row) {
+        int rowsCount;
+        switch (row) {
+            case "1k":
+                rowsCount = 1000;
+                break;
+            case "10k":
+                rowsCount = 10_000;
+                break;
+            case "100k":
+                rowsCount = 100_000;
+                break;
+            case "1m":
+                rowsCount = 1_000_000;
+                break;
+            case "2m":
+                rowsCount = 2_000_000;
+                break;
+            case "3m":
+                rowsCount = 3_000_000;
+                break;
+            default:
+                rowsCount = 1000;
+        }
+        return rowsCount;
     }
 
     // Фон UI
@@ -336,4 +370,11 @@ public class Gui extends JFrame {
             }
         }
     }
+
+
+    // Установка статуса для информативности
+    public static void setStatus(String status) {
+        statusLabel.setText(status);
+    }
+
 }
