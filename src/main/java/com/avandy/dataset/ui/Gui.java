@@ -55,7 +55,7 @@ public class Gui extends JFrame {
         setIconImage(LOGO_ICON.getImage());
         setFont(GUI_FONT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(260, 120, 1395, 700);
+        setBounds(260, 120, 1395, 708);
         getContentPane().setLayout(null);
 
         /* TOP LEFT */
@@ -267,7 +267,7 @@ public class Gui extends JFrame {
 
         //Table
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 40, 1360, 600);
+        scrollPane.setBounds(10, 40, 1360, 608);
         getContentPane().add(scrollPane);
         model = new DefaultTableModel(new Object[][]{
         }, MAIN_TABLE_HEADERS) {
