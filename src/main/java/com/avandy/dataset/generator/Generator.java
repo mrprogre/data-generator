@@ -2,6 +2,7 @@ package com.avandy.dataset.generator;
 
 import com.avandy.dataset.model.Row;
 import com.avandy.dataset.ui.Gui;
+import com.avandy.dataset.util.PropertiesUtils;
 import com.avandy.dataset.util.Randomizer;
 
 import java.time.LocalDate;
@@ -21,15 +22,15 @@ public class Generator {
     }
 
     private void generateRows(long rowsCount) {
-        int minAge = 18;
-        int maxAge = 50;
-        int minGrade = 2;
-        int maxGrade = 5;
-        int maxOrderCount = 30;
-        int minOrderAmountSum = 40;
-        int maxOrderAmountSum = 20990;
-        int minYear = 2014;
-        int maxYear = 2022;
+        int minAge = Integer.parseInt(PropertiesUtils.get("generator.minAge"));
+        int maxAge = Integer.parseInt(PropertiesUtils.get("generator.maxAge"));
+        int minGrade = Integer.parseInt(PropertiesUtils.get("generator.minGrade"));
+        int maxGrade = Integer.parseInt(PropertiesUtils.get("generator.maxGrade"));
+        int maxOrderCount = Integer.parseInt(PropertiesUtils.get("generator.maxOrderCount"));
+        int minOrderAmountSum = Integer.parseInt(PropertiesUtils.get("generator.minOrderAmountSum"));
+        int maxOrderAmountSum = Integer.parseInt(PropertiesUtils.get("generator.maxOrderAmountSum"));
+        int minYear = Integer.parseInt(PropertiesUtils.get("generator.minYear"));
+        int maxYear = Integer.parseInt(PropertiesUtils.get("generator.maxYear"));
 
         // очистка таблицы и коллекции перед новой генерацией строк
         if (Gui.model.getRowCount() > 0) Gui.model.setRowCount(0);
