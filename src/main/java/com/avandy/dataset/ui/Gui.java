@@ -55,7 +55,7 @@ public class Gui extends JFrame {
         setIconImage(LOGO_ICON.getImage());
         setFont(GUI_FONT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(330, 160, 1395, 700);
+        setBounds(260, 120, 1395, 700);
         getContentPane().setLayout(null);
 
         /* TOP LEFT */
