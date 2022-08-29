@@ -11,7 +11,7 @@ https://www.java.com/ru/download/
 Актуальная версия программы: 
 https://github.com/mrprogre/data-generator/raw/master/data-generator.jar
 
-![image](https://user-images.githubusercontent.com/45883640/187154801-c50b437e-2702-4217-b1b0-f6db395d67cd.png)
+![image](https://user-images.githubusercontent.com/45883640/187161374-deb7e72b-0dea-4483-bcaa-28cc5507682e.png)
 
 
 Пример выгрузки csv:
