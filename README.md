@@ -14,4 +14,4 @@ https://github.com/mrprogre/data-generator/raw/master/data-generator.jar
 
 Пример выгрузки csv:
 
-![image](https://user-images.githubusercontent.com/45883640/187154713-dc6fa3c1-83b0-4c7d-9cf3-a9da86c612be.png)
+![image](https://user-images.githubusercontent.com/45883640/187202475-5058164b-59e0-42b8-baa7-29cf76af68c2.png)
