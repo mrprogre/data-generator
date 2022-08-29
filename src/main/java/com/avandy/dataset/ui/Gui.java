@@ -26,7 +26,7 @@ public class Gui extends JFrame {
     public static JComboBox<String> rowsCountComboBox;
     private static final Font GUI_FONT = new Font("Tahoma", Font.PLAIN, 14);
     private static final String[] SAVE_FORMAT = new String[]{"csv", "txt"};
-    private static final String[] ROWS_COUNT = new String[]{"1k", "10k", "100k", "1m", "2m", "3m"};
+    private static final String[] ROWS_COUNT = new String[]{"1k", "10k", "100k", "1m"/*, "2m", "3m"*/};
     private static JLabel statusLabel;
     private static final int BUTTON_WIDTH = 36;
     // Icons
