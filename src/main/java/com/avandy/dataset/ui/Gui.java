@@ -295,7 +295,28 @@ public class Gui extends JFrame {
         //headers
         JTableHeader header = table.getTableHeader();
         header.setFont(new Font("Tahoma", Font.BOLD, 13));
-        //Cell alignment
+        // "№", "Int", "Long", "Name", "Age", "Avg grade", "Car", "Color", "Country", "Orders", "Sales", "Last order"
+        //  0    1      2       3       4      5            6      7        8          9         10       11
+
+        table.getColumnModel().getColumn(0).setMaxWidth(80);
+        table.getColumnModel().getColumn(0).setPreferredWidth(40);
+        table.getColumnModel().getColumn(1).setMaxWidth(90);
+        table.getColumnModel().getColumn(1).setPreferredWidth(60);
+        table.getColumnModel().getColumn(2).setMaxWidth(160);
+        table.getColumnModel().getColumn(2).setPreferredWidth(60);
+        table.getColumnModel().getColumn(3).setMaxWidth(160);
+        table.getColumnModel().getColumn(3).setPreferredWidth(160);
+        table.getColumnModel().getColumn(4).setMaxWidth(50);
+        table.getColumnModel().getColumn(4).setPreferredWidth(50);
+        table.getColumnModel().getColumn(5).setMaxWidth(90);
+        table.getColumnModel().getColumn(5).setPreferredWidth(90);
+        table.getColumnModel().getColumn(9).setMaxWidth(60);
+        table.getColumnModel().getColumn(9).setPreferredWidth(60);
+        table.getColumnModel().getColumn(10).setMaxWidth(80);
+        table.getColumnModel().getColumn(10).setPreferredWidth(80);
+        table.getColumnModel().getColumn(11).setMaxWidth(90);
+        table.getColumnModel().getColumn(11).setPreferredWidth(90);
+
         DefaultTableCellRenderer rendererCenter = new DefaultTableCellRenderer();
         rendererCenter.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(rendererCenter);
@@ -316,15 +337,6 @@ public class Gui extends JFrame {
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         table.setFont(GUI_FONT);
-        table.getColumnModel().getColumn(0).setMaxWidth(80);
-        table.getColumnModel().getColumn(1).setMaxWidth(90);
-        table.getColumnModel().getColumn(1).setPreferredWidth(90);
-        table.getColumnModel().getColumn(2).setMaxWidth(160);
-        table.getColumnModel().getColumn(2).setPreferredWidth(160);
-        table.getColumnModel().getColumn(4).setMaxWidth(50);
-        table.getColumnModel().getColumn(4).setPreferredWidth(50);
-        table.getColumnModel().getColumn(5).setMaxWidth(90);
-        table.getColumnModel().getColumn(5).setPreferredWidth(90);
         table.setAutoCreateRowSorter(true);
         scrollPane.setViewportView(table);
 
@@ -335,9 +347,6 @@ public class Gui extends JFrame {
     private int getRowsCount(String row) {
         int rowsCount;
         switch (row) {
-            case "1k":
-                rowsCount = 1000;
-                break;
             case "10k":
                 rowsCount = 10_000;
                 break;
