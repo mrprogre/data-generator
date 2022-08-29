@@ -8,7 +8,7 @@
 https://www.java.com/ru/download/
 
 Актуальная версия программы 
-https://github.com/mrprogre/avandy-dataset/raw/master/avandy-dataset.jar
+https://github.com/mrprogre/data-generator/raw/master/data-generator.jar
 
 ![image](https://user-images.githubusercontent.com/45883640/187094733-77f4ad87-fc50-45ac-8e74-d4566c291f2d.png)
 
