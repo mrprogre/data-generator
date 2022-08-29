@@ -146,7 +146,9 @@ public class Gui extends JFrame {
                 rows = 1_000_000;
                 rowsCount.setText(String.valueOf(rows));
             }
-            new Generator().generate(rows);
+            //new Generator().generate(rows);
+            long finalRows = rows;
+            new Thread(() -> new Generator().generate(finalRows)).start();
         });
 
         generateButton.addMouseListener(new MouseAdapter() {
@@ -324,7 +326,7 @@ public class Gui extends JFrame {
     }
 
     // Фон UI
-    static class Background extends JPanel {
+    private static class Background extends JPanel {
         public void paintComponent(Graphics g) {
             try {
                 Image im = ImageIO.read(Objects.requireNonNull(this.getClass().getResource("/background/gray.png")));
