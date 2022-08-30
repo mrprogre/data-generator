@@ -20,4 +20,4 @@ https://github.com/mrprogre/data-generator/raw/master/data-generator.jar
 
 P.S. Приложение работает в разы быстрее, если выделить для Java больше оперативной памяти!
 
-Делается это через указание параметра **-Xmx2048m** по адресу **Java -> View -> Runtime parameters**
+Делается это через указание параметра **-Xmx2048m** по адресу **Пуск -> Java -> View -> Runtime parameters**
