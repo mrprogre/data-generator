@@ -21,14 +21,8 @@ public final class Util {
             case "100k":
                 rowsCount = 100_000;
                 break;
-            case "1m":
-                rowsCount = 1_000_000;
-                break;
-            case "2m":
-                rowsCount = 2_000_000;
-                break;
-            case "3m":
-                rowsCount = 3_000_000;
+            case "500k":
+                rowsCount = 500_000;
                 break;
             default:
                 rowsCount = 1000;
