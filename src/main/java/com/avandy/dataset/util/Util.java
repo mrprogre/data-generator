@@ -15,9 +15,6 @@ public final class Util {
     public static int getRowsCount(String row) {
         int rowsCount;
         switch (row) {
-            case "10k":
-                rowsCount = 10_000;
-                break;
             case "100k":
                 rowsCount = 100_000;
                 break;
@@ -25,7 +22,7 @@ public final class Util {
                 rowsCount = 500_000;
                 break;
             default:
-                rowsCount = 1000;
+                rowsCount = 10_000;
         }
         return rowsCount;
     }
