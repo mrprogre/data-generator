@@ -121,7 +121,7 @@ public class Gui extends JFrame {
 
         // Статус
         statusLabel = new JLabel();
-        statusLabel.setBounds(topLeftX + 100, topLeftY + 4, 300, 14);
+        statusLabel.setBounds(topLeftX + 100, topLeftY + 4, 140, 14);
         getContentPane().add(statusLabel);
         animation(statusLabel);
 
