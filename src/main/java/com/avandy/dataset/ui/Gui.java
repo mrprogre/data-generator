@@ -90,7 +90,6 @@ public class Gui extends JFrame {
         generateButton.addActionListener(e -> {
             String row = Objects.requireNonNull(rowsCountComboBox.getSelectedItem()).toString();
             int rowsCount = Util.getRowsCount(row);
-            //new Generator().generate(rows);
             new Thread(() -> new Generator().generate(rowsCount)).start();
         });
 
