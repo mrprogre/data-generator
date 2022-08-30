@@ -91,7 +91,7 @@ public class Gui extends JFrame {
         JLabel rowsGenerate = new JLabel("Generate rows: ");
         rowsGenerate.setBounds(topLeftX - 95, topLeftY + 4, 90, 14);
         getContentPane().add(rowsGenerate);
-        labelAnimation(rowsGenerate);
+        animation(rowsGenerate);
 
         // Количество строк для генерации
         rowsCountComboBox = new JComboBox<>();
@@ -117,13 +117,13 @@ public class Gui extends JFrame {
             int rowsCount = Util.getRowsCount(row);
             new Thread(() -> new Generator().generate(rowsCount)).start();
         });
-        iconAnimation(generateButton, START_BUTTON_ICON, WHEN_MOUSE_ON_START_BUTTON_ICON);
+        animation(generateButton, START_BUTTON_ICON, WHEN_MOUSE_ON_START_BUTTON_ICON);
 
         // Статус
         statusLabel = new JLabel();
         statusLabel.setBounds(topLeftX + 100, topLeftY + 4, 300, 14);
         getContentPane().add(statusLabel);
-        labelAnimation(statusLabel);
+        animation(statusLabel);
 
         /* TOP RIGHT */
         int topRightX = 1118;
@@ -133,7 +133,7 @@ public class Gui extends JFrame {
         JLabel exportLabel = new JLabel("Export data:");
         exportLabel.setBounds(topRightX - 77, topRightY + 4, 69, 14);
         getContentPane().add(exportLabel);
-        labelAnimation(exportLabel);
+        animation(exportLabel);
 
         // Формат выгрузки
         saveFormatComboBox = new JComboBox<>();
@@ -174,7 +174,7 @@ public class Gui extends JFrame {
                 setStatus("No data to export");
             }
         });
-        iconAnimation(exportButton, EXPORT_BUTTON_ICON, WHEN_MOUSE_ON_EXPORT_BUTTON_ICON);
+        animation(exportButton, EXPORT_BUTTON_ICON, WHEN_MOUSE_ON_EXPORT_BUTTON_ICON);
 
         // Остановка экспорта строк
         JButton stopGeneration = new JButton();
@@ -189,7 +189,7 @@ public class Gui extends JFrame {
             Export.isExportStop.set(true);
             setStatus("Stopped");
         });
-        iconAnimation(stopGeneration, STOP_BUTTON_ICON, WHEN_MOUSE_ON_STOP_BUTTON_ICON);
+        animation(stopGeneration, STOP_BUTTON_ICON, WHEN_MOUSE_ON_STOP_BUTTON_ICON);
 
         // Очистка модели
         JButton clearButton = new JButton();
@@ -205,7 +205,7 @@ public class Gui extends JFrame {
                 model.setRowCount(0);
             }
         });
-        iconAnimation(clearButton, CLEAR_BUTTON_ICON, WHEN_MOUSE_ON_CLEAR_BUTTON_ICON);
+        animation(clearButton, CLEAR_BUTTON_ICON, WHEN_MOUSE_ON_CLEAR_BUTTON_ICON);
 
         /* Сворачивание в трей */
         JButton toTrayBtn = new JButton(TRAY_BUTTON_ICON);
@@ -218,7 +218,7 @@ public class Gui extends JFrame {
             getContentPane().add(toTrayBtn);
         }
         toTrayBtn.addActionListener(e -> setVisible(false));
-        iconAnimation(toTrayBtn, TRAY_BUTTON_ICON, WHEN_MOUSE_ON_TRAY_BUTTON_ICON);
+        animation(toTrayBtn, TRAY_BUTTON_ICON, WHEN_MOUSE_ON_TRAY_BUTTON_ICON);
 
         if (SystemTray.isSupported()) {
             try {
@@ -269,7 +269,7 @@ public class Gui extends JFrame {
         exitBtn.setFocusable(false);
         getContentPane().add(exitBtn);
         exitBtn.addActionListener((e) -> System.exit(0));
-        iconAnimation(exitBtn, EXIT_BUTTON_ICON, WHEN_MOUSE_ON_EXIT_BUTTON_ICON);
+        animation(exitBtn, EXIT_BUTTON_ICON, WHEN_MOUSE_ON_EXIT_BUTTON_ICON);
 
         /* BOTTOM */
         // Подпись
@@ -279,7 +279,7 @@ public class Gui extends JFrame {
         labelSign.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelSign.setBounds(1320, 651, 57, 14);
         getContentPane().add(labelSign);
-        labelAnimation(labelSign);
+        animation(labelSign);
 
         labelSign.addMouseListener(new MouseAdapter() {
             @Override
@@ -386,7 +386,7 @@ public class Gui extends JFrame {
         setVisible(true);
     }
 
-    private void iconAnimation(JButton exitBtn, ImageIcon off, ImageIcon on) {
+    private void animation(JButton exitBtn, ImageIcon off, ImageIcon on) {
         exitBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -400,7 +400,7 @@ public class Gui extends JFrame {
         });
     }
 
-    private void labelAnimation(JLabel label) {
+    private void animation(JLabel label) {
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
