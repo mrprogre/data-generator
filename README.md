@@ -9,7 +9,7 @@ https://www.java.com/ru/download/
 Актуальная версия программы: 
 https://github.com/mrprogre/data-generator/raw/master/data-generator.jar
 
-![image](https://user-images.githubusercontent.com/45883640/187388857-35acbb7f-f501-4887-b56e-fe6a957b41cb.png)
+![image](https://user-images.githubusercontent.com/45883640/187394648-1671f080-7da6-4188-8015-ed929a914fd0.png)
 
 
 Пример выгрузки csv (миллион строк ~ 2,5 минуты):
