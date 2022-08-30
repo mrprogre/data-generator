@@ -18,6 +18,8 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static java.awt.GraphicsDevice.WindowTranslucency.TRANSLUCENT;
+
 public class Gui extends JFrame {
     public static DefaultTableModel model;
     public static final String[] MAIN_TABLE_HEADERS = {"№", "Int", "Long", "Name", "Age", "Avg grade",
@@ -48,6 +50,10 @@ public class Gui extends JFrame {
             .createImage(Gui.class.getResource("/icons/stop.png")));
     private static final ImageIcon WHEN_MOUSE_ON_STOP_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
             .createImage(Gui.class.getResource("/icons/stop2.png")));
+    private static final ImageIcon EXIT_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/exit.png")));
+    private static final ImageIcon WHEN_MOUSE_ON_EXIT_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/exit2.png")));
 
     public Gui() {
         setResizable(false);
@@ -56,8 +62,17 @@ public class Gui extends JFrame {
         setIconImage(LOGO_ICON.getImage());
         setFont(GUI_FONT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(260, 120, 1400, 708);
+        setBounds(260, 120, 1385, 671);
         getContentPane().setLayout(null);
+
+        // Прозрачность и оформление окна
+        this.setUndecorated(true);
+        // Проверка поддерживает ли операционная система прозрачность окон
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        boolean isUniformTranslucencySupported = gd.isWindowTranslucencySupported(TRANSLUCENT);
+        if (isUniformTranslucencySupported) this.setOpacity(0.90f);
 
         /* TOP LEFT */
         int topLeftX = 105;
@@ -92,18 +107,7 @@ public class Gui extends JFrame {
             int rowsCount = Util.getRowsCount(row);
             new Thread(() -> new Generator().generate(rowsCount)).start();
         });
-
-        generateButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                generateButton.setIcon(WHEN_MOUSE_ON_START_BUTTON_ICON);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                generateButton.setIcon(START_BUTTON_ICON);
-            }
-        });
+        iconAnimation(generateButton, START_BUTTON_ICON, WHEN_MOUSE_ON_START_BUTTON_ICON);
 
         // Статус
         statusLabel = new JLabel();
@@ -111,7 +115,7 @@ public class Gui extends JFrame {
         getContentPane().add(statusLabel);
 
         /* TOP RIGHT */
-        int topRightX = 1200;
+        int topRightX = 1165;
         int topRightY = 10;
 
         // Лейбл
@@ -158,18 +162,7 @@ public class Gui extends JFrame {
                 setStatus("No data to export");
             }
         });
-
-        exportButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                exportButton.setIcon(WHEN_MOUSE_ON_EXPORT_BUTTON_ICON);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                exportButton.setIcon(EXPORT_BUTTON_ICON);
-            }
-        });
+        iconAnimation(exportButton, EXPORT_BUTTON_ICON, WHEN_MOUSE_ON_EXPORT_BUTTON_ICON);
 
         // Остановка экспорта строк
         JButton stopGeneration = new JButton();
@@ -180,23 +173,11 @@ public class Gui extends JFrame {
         stopGeneration.setBorderPainted(false);
         stopGeneration.setBounds(topRightX + 100, topRightY, BUTTON_WIDTH, 22);
         getContentPane().add(stopGeneration);
-
         stopGeneration.addActionListener(e -> {
             Export.isExportStop.set(true);
             setStatus("Stopped");
         });
-
-        stopGeneration.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                stopGeneration.setIcon(WHEN_MOUSE_ON_STOP_BUTTON_ICON);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                stopGeneration.setIcon(STOP_BUTTON_ICON);
-            }
-        });
+        iconAnimation(stopGeneration, STOP_BUTTON_ICON, WHEN_MOUSE_ON_STOP_BUTTON_ICON);
 
         // Очистка модели
         JButton clearButton = new JButton();
@@ -212,18 +193,20 @@ public class Gui extends JFrame {
                 model.setRowCount(0);
             }
         });
+        iconAnimation(clearButton, CLEAR_BUTTON_ICON, WHEN_MOUSE_ON_CLEAR_BUTTON_ICON);
 
-        clearButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                clearButton.setIcon(WHEN_MOUSE_ON_CLEAR_BUTTON_ICON);
-            }
+        // Exit button
+        JButton exitBtn = new JButton(EXIT_BUTTON_ICON);
+        exitBtn.setToolTipText("exit");
+        exitBtn.setBounds(topRightX + 190, topRightY + 2, 24, 20);
+        exitBtn.setContentAreaFilled(false);
+        exitBtn.setBorderPainted(false);
+        exitBtn.setFocusable(false);
+        getContentPane().add(exitBtn);
+        exitBtn.addActionListener((e) -> System.exit(0));
+        iconAnimation(exitBtn, EXIT_BUTTON_ICON, WHEN_MOUSE_ON_EXIT_BUTTON_ICON);
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                clearButton.setIcon(CLEAR_BUTTON_ICON);
-            }
-        });
+        /* BOTTOM */
 
         // Подпись
         JLabel labelSign = new JLabel("mrprogre");
@@ -232,18 +215,9 @@ public class Gui extends JFrame {
         labelSign.setFont(new Font("Tahoma", Font.BOLD, 11));
         labelSign.setBounds(1320, 651, 57, 14);
         getContentPane().add(labelSign);
+        labelAnimation(labelSign);
 
         labelSign.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                labelSign.setForeground(new Color(255, 236, 13));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                labelSign.setForeground(new Color(0, 0, 0));
-            }
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
@@ -346,6 +320,34 @@ public class Gui extends JFrame {
         scrollPane.setViewportView(table);
 
         setVisible(true);
+    }
+
+    private void iconAnimation(JButton exitBtn, ImageIcon off, ImageIcon on) {
+        exitBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exitBtn.setIcon(on);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exitBtn.setIcon(off);
+            }
+        });
+    }
+
+    private void labelAnimation(JLabel label) {
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                label.setForeground(new Color(255, 236, 13));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                label.setForeground(new Color(0, 0, 0));
+            }
+        });
     }
 
     // Установка статуса для информативности
