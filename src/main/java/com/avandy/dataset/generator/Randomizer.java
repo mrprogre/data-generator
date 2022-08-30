@@ -1,6 +1,6 @@
-package com.avandy.dataset.util;
+package com.avandy.dataset.generator;
 
-import com.avandy.dataset.generator.Data;
+import com.avandy.dataset.util.Util;
 import lombok.experimental.UtilityClass;
 
 import java.util.Random;

@@ -3,7 +3,6 @@ package com.avandy.dataset.generator;
 import com.avandy.dataset.model.Row;
 import com.avandy.dataset.ui.Gui;
 import com.avandy.dataset.util.PropertiesUtils;
-import com.avandy.dataset.util.Randomizer;
 
 import java.time.LocalDate;
 

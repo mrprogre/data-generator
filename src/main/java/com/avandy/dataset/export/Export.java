@@ -1,4 +1,4 @@
-package com.avandy.dataset.util;
+package com.avandy.dataset.export;
 
 import com.avandy.dataset.ui.Gui;
 
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Saver {
+public class Export {
     public static AtomicBoolean isExportStop = new AtomicBoolean(false);
 
     public void exportData(JFileChooser saver) throws IOException {

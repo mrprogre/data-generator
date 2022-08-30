@@ -1,7 +1,8 @@
 package com.avandy.dataset.ui;
 
+import com.avandy.dataset.export.Export;
 import com.avandy.dataset.generator.Generator;
-import com.avandy.dataset.util.Saver;
+import com.avandy.dataset.util.Util;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -88,7 +89,7 @@ public class Gui extends JFrame {
 
         generateButton.addActionListener(e -> {
             String row = Objects.requireNonNull(rowsCountComboBox.getSelectedItem()).toString();
-            int rowsCount = getRowsCount(row);
+            int rowsCount = Util.getRowsCount(row);
             //new Generator().generate(rows);
             new Thread(() -> new Generator().generate(rowsCount)).start();
         });
@@ -145,10 +146,10 @@ public class Gui extends JFrame {
                 saver.setCurrentDirectory(file);
                 int res = saver.showDialog(null, "Save");
                 if (res == JFileChooser.APPROVE_OPTION) {
-                    //new Saver().exportData(saver);
+                    //new Export().exportData(saver);
                     new Thread(() -> {
                         try {
-                            new Saver().exportData(saver);
+                            new Export().exportData(saver);
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
@@ -182,7 +183,7 @@ public class Gui extends JFrame {
         getContentPane().add(stopGeneration);
 
         stopGeneration.addActionListener(e -> {
-            Saver.isExportStop.set(true);
+            Export.isExportStop.set(true);
             setStatus("Stopped");
         });
 
@@ -346,31 +347,6 @@ public class Gui extends JFrame {
         scrollPane.setViewportView(table);
 
         setVisible(true);
-    }
-
-    // Маппинг строк в цифры
-    private int getRowsCount(String row) {
-        int rowsCount;
-        switch (row) {
-            case "10k":
-                rowsCount = 10_000;
-                break;
-            case "100k":
-                rowsCount = 100_000;
-                break;
-            case "1m":
-                rowsCount = 1_000_000;
-                break;
-            case "2m":
-                rowsCount = 2_000_000;
-                break;
-            case "3m":
-                rowsCount = 3_000_000;
-                break;
-            default:
-                rowsCount = 1000;
-        }
-        return rowsCount;
     }
 
     // Установка статуса для информативности

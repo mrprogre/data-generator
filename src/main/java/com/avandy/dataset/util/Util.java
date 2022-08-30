@@ -11,4 +11,29 @@ public final class Util {
         return bd.doubleValue();
     }
 
+    // Маппинг строк в цифры
+    public static int getRowsCount(String row) {
+        int rowsCount;
+        switch (row) {
+            case "10k":
+                rowsCount = 10_000;
+                break;
+            case "100k":
+                rowsCount = 100_000;
+                break;
+            case "1m":
+                rowsCount = 1_000_000;
+                break;
+            case "2m":
+                rowsCount = 2_000_000;
+                break;
+            case "3m":
+                rowsCount = 3_000_000;
+                break;
+            default:
+                rowsCount = 1000;
+        }
+        return rowsCount;
+    }
+
 }
