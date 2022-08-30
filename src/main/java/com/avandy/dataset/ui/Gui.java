@@ -51,7 +51,7 @@ public class Gui extends JFrame {
 
     public Gui() {
         setResizable(false);
-        getContentPane().setBackground(new Color(229, 190, 152));
+        getContentPane().setBackground(new Color(139, 194, 224));
         setTitle("avandy-random-data-generator");
         setIconImage(LOGO_ICON.getImage());
         setFont(GUI_FONT);

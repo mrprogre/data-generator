@@ -59,7 +59,7 @@ public class Randomizer extends Data {
         return getWomanName() + " " + getSurname();
     }
 
-    // Random human
+    // Human
     public String getRandomHuman() {
         return getRandomBoolean() ? getManNameAndSurname() : getWomenNameAndSurname();
     }
