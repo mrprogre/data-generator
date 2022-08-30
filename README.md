@@ -1,4 +1,4 @@
-random-data-generator (open source)
+random-data-generator
 ----
 
 Формирование случайных данных разного типа для обучения аналитиков
