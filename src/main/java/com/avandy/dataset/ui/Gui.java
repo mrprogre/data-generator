@@ -4,6 +4,7 @@ import com.avandy.dataset.export.Export;
 import com.avandy.dataset.generator.Generator;
 import com.avandy.dataset.util.Util;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -11,10 +12,12 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -54,6 +57,12 @@ public class Gui extends JFrame {
             .createImage(Gui.class.getResource("/icons/exit.png")));
     private static final ImageIcon WHEN_MOUSE_ON_EXIT_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
             .createImage(Gui.class.getResource("/icons/exit2.png")));
+    private static final ImageIcon TRAY_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/tray.png")));
+    private static final ImageIcon WHEN_MOUSE_ON_TRAY_BUTTON_ICON = new ImageIcon(Toolkit.getDefaultToolkit()
+            .createImage(Gui.class.getResource("/icons/tray2.png")));
+    private static final URL APP_IN_TRAY_BUTTON_ICON = Gui.class.getResource("/icons/tray3.png");
+
 
     public Gui() {
         setResizable(false);
@@ -82,6 +91,7 @@ public class Gui extends JFrame {
         JLabel rowsGenerate = new JLabel("Generate rows: ");
         rowsGenerate.setBounds(topLeftX - 95, topLeftY + 4, 90, 14);
         getContentPane().add(rowsGenerate);
+        labelAnimation(rowsGenerate);
 
         // Количество строк для генерации
         rowsCountComboBox = new JComboBox<>();
@@ -113,15 +123,17 @@ public class Gui extends JFrame {
         statusLabel = new JLabel();
         statusLabel.setBounds(topLeftX + 100, topLeftY + 4, 300, 14);
         getContentPane().add(statusLabel);
+        labelAnimation(statusLabel);
 
         /* TOP RIGHT */
-        int topRightX = 1165;
+        int topRightX = 1118;
         int topRightY = 10;
 
         // Лейбл
         JLabel exportLabel = new JLabel("Export data:");
         exportLabel.setBounds(topRightX - 77, topRightY + 4, 69, 14);
         getContentPane().add(exportLabel);
+        labelAnimation(exportLabel);
 
         // Формат выгрузки
         saveFormatComboBox = new JComboBox<>();
@@ -195,10 +207,63 @@ public class Gui extends JFrame {
         });
         iconAnimation(clearButton, CLEAR_BUTTON_ICON, WHEN_MOUSE_ON_CLEAR_BUTTON_ICON);
 
+        /* Сворачивание в трей */
+        JButton toTrayBtn = new JButton(TRAY_BUTTON_ICON);
+        toTrayBtn.setToolTipText("to tray");
+        toTrayBtn.setFocusable(false);
+        toTrayBtn.setContentAreaFilled(false);
+        toTrayBtn.setBorderPainted(false);
+        toTrayBtn.setBounds(topRightX + 190, topRightY + 2, 24, 22);
+        if (SystemTray.isSupported()) {
+            getContentPane().add(toTrayBtn);
+        }
+        toTrayBtn.addActionListener(e -> setVisible(false));
+        iconAnimation(toTrayBtn, TRAY_BUTTON_ICON, WHEN_MOUSE_ON_TRAY_BUTTON_ICON);
+
+        if (SystemTray.isSupported()) {
+            try {
+                BufferedImage iconTray = ImageIO.read(Objects.requireNonNull(APP_IN_TRAY_BUTTON_ICON));
+                final TrayIcon trayIcon = new TrayIcon(iconTray, "Data Generator");
+                SystemTray systemTray = SystemTray.getSystemTray();
+                systemTray.add(trayIcon);
+
+                final PopupMenu trayMenu = new PopupMenu();
+                MenuItem iShow = new MenuItem("Show");
+                iShow.addActionListener(e -> {
+                    setVisible(true);
+                    setExtendedState(JFrame.NORMAL);
+                });
+                trayMenu.add(iShow);
+
+                MenuItem iClose = new MenuItem("Close");
+                iClose.addActionListener(e -> System.exit(0));
+                trayMenu.add(iClose);
+
+                trayIcon.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (SwingUtilities.isLeftMouseButton(e)) {
+                            setVisible(true);
+                            setExtendedState(JFrame.NORMAL);
+                        }
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        if (SwingUtilities.isRightMouseButton(e)) {
+                            trayIcon.setPopupMenu(trayMenu);
+                        }
+                    }
+                });
+            } catch (IOException | AWTException e) {
+                e.printStackTrace();
+            }
+        }
+
         // Exit button
         JButton exitBtn = new JButton(EXIT_BUTTON_ICON);
         exitBtn.setToolTipText("exit");
-        exitBtn.setBounds(topRightX + 190, topRightY + 2, 24, 20);
+        exitBtn.setBounds(topRightX + 230, topRightY + 2, 24, 22);
         exitBtn.setContentAreaFilled(false);
         exitBtn.setBorderPainted(false);
         exitBtn.setFocusable(false);
@@ -207,7 +272,6 @@ public class Gui extends JFrame {
         iconAnimation(exitBtn, EXIT_BUTTON_ICON, WHEN_MOUSE_ON_EXIT_BUTTON_ICON);
 
         /* BOTTOM */
-
         // Подпись
         JLabel labelSign = new JLabel("mrprogre");
         labelSign.setForeground(new Color(0, 0, 0));
