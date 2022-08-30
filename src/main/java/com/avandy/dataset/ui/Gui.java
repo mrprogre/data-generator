@@ -230,13 +230,13 @@ public class Gui extends JFrame {
         labelSign.setForeground(new Color(0, 0, 0));
         //labelSign.setEnabled(false);
         labelSign.setFont(new Font("Tahoma", Font.BOLD, 11));
-        labelSign.setBounds(1316, 651, 57, 14);
+        labelSign.setBounds(1320, 651, 57, 14);
         getContentPane().add(labelSign);
 
         labelSign.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                labelSign.setForeground(new Color(40, 36, 180));
+                labelSign.setForeground(new Color(255, 236, 13));
             }
 
             @Override
