@@ -1,26 +1,27 @@
 random-data-generator
 ----
 
-Формирование случайных данных разного типа для обучения аналитиков (да, я знаю про generatedata.com)
+Generation of random data of various types for training analysts (yes, I know about generatedata.com)
 
-На компьютере должна быть установлена Java: 
+
+Java must be installed on the computer:
 https://www.java.com/ru/download/
 
-Актуальная версия программы: 
+The current version of the program:
 https://github.com/mrprogre/data-generator/raw/master/data-generator.jar
 
 ![image](https://user-images.githubusercontent.com/45883640/187461319-ebc8a6cd-6ebb-419a-a3ed-51b31ef3c5f5.png)
 
 
-Пример выгрузки csv:
+csv upload example:
 
 ![image](https://user-images.githubusercontent.com/45883640/187202475-5058164b-59e0-42b8-baa7-29cf76af68c2.png)
 
 TO DO:
-1) Возможность самостоятельно называть поля и задавать им тип
-2) Возможность формировать поля на основании правил
-3) Возможность менять разделители в результирующем csv
-4) Возможность изменять очерёдность полей
-5) Возможность генерировать файл весом > 5 Гб.
-6) Возможность экспорта не только в файл, но и в целевую БД
-7) Протестировать возможность работы на *nix и MacOS.
+1) The ability to independently name the fields and set their type
+2) Ability to form fields based on rules
+3) Ability to change separators in the resulting csv
+4) Ability to change the order of fields
+5) Ability to generate a file weighing > 5 GB.
+6) Ability to export not only to a file, but also to the target database
+7) Test the ability to work on *nix and MacOS.
