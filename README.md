@@ -16,7 +16,7 @@ https://github.com/mrprogre/data-generator/raw/master/data-generator.jar
 
 ![image](https://user-images.githubusercontent.com/45883640/187202475-5058164b-59e0-42b8-baa7-29cf76af68c2.png)
 
-TO DO (для всех желающих):
+TO DO:
 - Возможность самостоятельно называть поля и задавать им тип
 - Возможность формировать поля на основании правил
 - Возможность менять разделители в результирующем csv
