@@ -1,7 +1,7 @@
-random-data-generator
+portable-random-data-generator
 ----
 
-Generation of random data of various types for training analysts (yes, I know about generatedata.com)
+Generation of random data of various types for training analysts (no internet required)
 
 
 Java must be installed on the computer:
